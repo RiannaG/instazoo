@@ -22,3 +22,24 @@
   bottom: 10px;
   left: 25px;
 }
+
+.gradient-header {
+  background: linear-gradient(
+    to left,
+    rgb(5, 182, 197) 0%,
+    rgb(15, 235, 227) 100%
+  );
+}
+
+.feed{
+  width: 230px;
+  display: flex;
+  background-color: red;
+  align-items: flex-end;
+}
+
+.letterSpacing{
+  letter-spacing: -0.2px;
+}
+
+

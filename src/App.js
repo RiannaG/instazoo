@@ -1,9 +1,10 @@
-import { Landingpage } from "./pages/Landingpage";
+import { Homepage } from './pages/Homepage';
+import { Landingpage } from './pages/Landingpage';
 
 const App = () => {
   return (
     <div>
-      <Landingpage />
+      <Homepage />
     </div>
   );
 };
