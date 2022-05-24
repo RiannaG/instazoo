@@ -4,11 +4,14 @@ import { CardShared } from '../components/CardShared';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Details } from '../components/Details';
+import PreferredShared from '../components/PreferredShared';
 
 export function Homepage() {
   const [animals, setAnimals] = useState([]);
   const [detail, setOpenDetail] = useState(false);
+  const [preferred, setOpenPreferred] = useState(false);
   const [currentAnimal, setCurrentAnimal] = useState();
+  const [preferredAnimals, setPreferredAnimals] = useState([]);
 
   useEffect(() => {
     fetch('https://zoo-animal-api.herokuapp.com/animals/rand/10')
@@ -25,9 +28,25 @@ export function Homepage() {
     setOpenDetail(false);
   };
 
+  const openPreferred = () => {
+    setOpenPreferred(true);
+  };
+
+  const closePreferred = () => {
+    setOpenPreferred(false);
+  };
+
+  const addLike = (currentAnimal) => {
+    setPreferredAnimals([...preferredAnimals, currentAnimal]);
+  };
+
+  useEffect(() => {
+    console.log(preferredAnimals);
+  }, [preferredAnimals]);
+
   return (
     <div>
-      <HeaderShared />
+      <HeaderShared openPreferred={openPreferred} />
       <div className='mt-3'>
         <h1 className='px-4'>
           Feed <span className='letterSpacing'>_______</span>
@@ -40,7 +59,17 @@ export function Homepage() {
           ))}
         </div>
       </div>
-      <Details show={detail} onHide={closeDetail} />
+      <Details
+        show={detail}
+        onHide={closeDetail}
+        add_like={addLike}
+        current_animal={currentAnimal}
+      />
+      <PreferredShared
+        preferredAnimals={preferredAnimals}
+        show={preferred}
+        onHide={closePreferred}
+      />
       <FooterShared />
     </div>
   );
