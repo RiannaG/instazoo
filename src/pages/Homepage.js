@@ -3,9 +3,12 @@ import { HeaderShared } from '../components/HeaderShared';
 import { CardShared } from '../components/CardShared';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Details } from '../components/Details';
 
 export function Homepage() {
   const [animals, setAnimals] = useState([]);
+  const [detail, setOpenDetail] = useState(false);
+  const [currentAnimal, setCurrentAnimal] = useState();
 
   useEffect(() => {
     fetch('https://zoo-animal-api.herokuapp.com/animals/rand/10')
@@ -13,9 +16,14 @@ export function Homepage() {
       .then((data) => setAnimals(data));
   }, []);
 
-  useEffect(() => {
-    console.log(animals);
-  }, [animals]);
+  const openDetail = (currentAnimal) => {
+    setOpenDetail(true);
+    setCurrentAnimal(currentAnimal);
+  };
+
+  const closeDetail = () => {
+    setOpenDetail(false);
+  };
 
   return (
     <div>
@@ -27,11 +35,12 @@ export function Homepage() {
         <div className='d-flex justify-content-evenly align-items-around flex-wrap mt-5'>
           {animals.map((animal) => (
             <li key={animal.id}>
-              <CardShared animal={animal} />
+              <CardShared animal={animal} openDetail={openDetail} />
             </li>
           ))}
         </div>
       </div>
+      <Details show={detail} onHide={closeDetail} />
       <FooterShared />
     </div>
   );
