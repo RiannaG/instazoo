@@ -1,7 +1,14 @@
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
+import { useState } from 'react';
 
 export function Details(props) {
+  const [isDisable, setIsDisabled] = useState(false);
+
+  const disableButton = () => {
+    setIsDisabled(true);
+  };
+
   return (
     <div>
       <Modal
@@ -24,7 +31,12 @@ export function Details(props) {
           </ul>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => props.add_like(props.current_animal)}>
+          <Button
+            onClick={() => {
+              !props.current_animal?.liked &&
+                props.add_like(props.current_animal);
+              disableButton();
+            }}>
             Aggiungi
           </Button>
           <Button onClick={props.onHide}>Close</Button>

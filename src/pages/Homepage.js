@@ -19,6 +19,12 @@ export function Homepage() {
       .then((data) => setAnimals(data));
   }, []);
 
+  useEffect(() => {
+    animals.map((animal) => {
+      animal.liked = false;
+    });
+  }, [animals]);
+
   const openDetail = (currentAnimal) => {
     setOpenDetail(true);
     setCurrentAnimal(currentAnimal);
@@ -38,11 +44,18 @@ export function Homepage() {
 
   const addLike = (currentAnimal) => {
     setPreferredAnimals([...preferredAnimals, currentAnimal]);
+    currentAnimal.liked = true;
   };
 
-  useEffect(() => {
-    console.log(preferredAnimals);
-  }, [preferredAnimals]);
+  const removeAnimal = (index) => {
+    console.log(index);
+
+    setPreferredAnimals(preferredAnimals.splice(index, 1));
+  };
+
+  // useEffect(() => {
+  //   console.log(preferredAnimals);
+  // }, [preferredAnimals]);
 
   return (
     <div>
@@ -66,9 +79,10 @@ export function Homepage() {
         current_animal={currentAnimal}
       />
       <PreferredShared
-        preferredAnimals={preferredAnimals}
+        preferred_animals={preferredAnimals}
         show={preferred}
         onHide={closePreferred}
+        remove_animal={removeAnimal}
       />
       <FooterShared />
     </div>
