@@ -1,10 +1,15 @@
-import { Homepage } from './pages/Homepage';
-import { Landingpage } from './pages/Landingpage';
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { Homepage } from "./pages/Homepage";
+import { Landingpage } from "./pages/Landingpage";
 
 const App = () => {
   return (
     <div>
-      <Homepage />
+      <Routes>
+        <Route path="/" element={<Landingpage />} />
+        <Route path="Homepage" element={<Homepage />} />
+      </Routes>
     </div>
   );
 };

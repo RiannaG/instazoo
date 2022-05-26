@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 
 const List = ({ animal, preferredAnimals, removeAnimal, index }) => {
   return (
@@ -7,7 +7,9 @@ const List = ({ animal, preferredAnimals, removeAnimal, index }) => {
       <Button
         onClick={() => {
           removeAnimal(animal.id);
-        }}>
+          animal.liked = false;
+        }}
+      >
         Elimina
       </Button>
     </div>

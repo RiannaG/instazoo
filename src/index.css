@@ -9,6 +9,13 @@
   font-family: "Fredoka", sans-serif;
 }
 
+.centrale-landing {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .gradient {
   background: linear-gradient(
     to right,
@@ -17,10 +24,10 @@
   );
 }
 
-.footer-prova {
-  position: absolute;
-  bottom: 10px;
-  left: 25px;
+.footer {
+  background-color: white;
+  display: flex;
+  align-items: center;
 }
 
 .gradient-header {
@@ -31,19 +38,17 @@
   );
 }
 
-.feed{
+.feed {
   width: 230px;
   display: flex;
   background-color: red;
   align-items: flex-end;
 }
 
-.letterSpacing{
+.letterSpacing {
   letter-spacing: -0.2px;
 }
 
-li{
+li {
   list-style: none;
 }
-
-
