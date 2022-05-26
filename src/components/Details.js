@@ -6,7 +6,8 @@ export function Details(props) {
   const [isDisable, setIsDisabled] = useState(false);
 
   const disableButton = () => {
-    setIsDisabled(true);
+    if (!props.current_animal?.liked && props.add_like(props.current_animal))
+      setIsDisabled(true);
   };
 
   return (
@@ -33,8 +34,6 @@ export function Details(props) {
         <Modal.Footer>
           <Button
             onClick={() => {
-              !props.current_animal?.liked &&
-                props.add_like(props.current_animal);
               disableButton();
             }}>
             Aggiungi

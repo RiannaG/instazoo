@@ -29,17 +29,20 @@ export function Homepage() {
     setOpenDetail(true);
     setCurrentAnimal(currentAnimal);
   };
-
-  const closeDetail = () => {
-    setOpenDetail(false);
-  };
-
   const openPreferred = () => {
     setOpenPreferred(true);
   };
 
-  const closePreferred = () => {
-    setOpenPreferred(false);
+  // const closeDetail = () => {
+  //   setOpenDetail(false);
+  // };
+
+  // const closePreferred = () => {
+  //   setOpenPreferred(false);
+  // };
+
+  const closeModal = (modalSet) => {
+    modalSet(false);
   };
 
   const addLike = (currentAnimal) => {
@@ -47,15 +50,13 @@ export function Homepage() {
     currentAnimal.liked = true;
   };
 
-  const removeAnimal = (index) => {
-    console.log(index);
-
-    setPreferredAnimals(preferredAnimals.splice(index, 1));
+  const removeAnimal = (id) => {
+    // console.log(animal);
+    // console.log(preferredAnimals);
+    const pippo = preferredAnimals.filter((animal) => animal.id !== id);
+    console.log(pippo);
+    setPreferredAnimals(pippo);
   };
-
-  // useEffect(() => {
-  //   console.log(preferredAnimals);
-  // }, [preferredAnimals]);
 
   return (
     <div>
@@ -74,14 +75,15 @@ export function Homepage() {
       </div>
       <Details
         show={detail}
-        onHide={closeDetail}
+        onHide={() => closeModal(setOpenDetail)}
         add_like={addLike}
         current_animal={currentAnimal}
       />
+
       <PreferredShared
         preferred_animals={preferredAnimals}
         show={preferred}
-        onHide={closePreferred}
+        onHide={() => closeModal(setOpenPreferred)}
         remove_animal={removeAnimal}
       />
       <FooterShared />

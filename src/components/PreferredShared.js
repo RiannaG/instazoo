@@ -1,17 +1,16 @@
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
 import List from './List';
+import { useEffect } from 'react';
 
 const PreferredShared = (props) => {
-  // const removeAnimal = (index) => {
-  //   props.preferred_animals.slice(index, 1);
-  //   console.log(props.preferred_animals);
-  // };
-  const removeAnimal = (index) => {
-    console.log(index);
+  const removeAnimal = (animal) => {
+    // const newArr = props.preferred_animals;
+    // newArr.splice(index, 1);
 
-    props.preferred_animals.splice(index, 1);
+    props.remove_animal(animal);
   };
+  // useEffect(() => props.preferred_animals);
 
   return (
     <Modal

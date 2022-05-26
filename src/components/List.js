@@ -3,8 +3,13 @@ import { Button } from 'react-bootstrap';
 const List = ({ animal, preferredAnimals, removeAnimal, index }) => {
   return (
     <div>
-      <p>{animal.name}</p>
-      <Button onClick={() => removeAnimal(index)}>Elimina</Button>
+      <span>{animal.name}</span>
+      <Button
+        onClick={() => {
+          removeAnimal(animal.id);
+        }}>
+        Elimina
+      </Button>
     </div>
   );
 };
