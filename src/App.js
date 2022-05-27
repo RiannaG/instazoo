@@ -5,12 +5,10 @@ import { Landingpage } from "./pages/Landingpage";
 
 const App = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Landingpage />} />
-        <Route path="Homepage" element={<Homepage />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landingpage />} />
+      <Route path="Homepage" element={<Homepage />} />
+    </Routes>
   );
 };
 
