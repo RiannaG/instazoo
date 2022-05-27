@@ -13,25 +13,27 @@ export const Landingpage = () => {
   }
 
   return (
-    <div className="h-100">
-      <div className="centrale-landing ">
-        <div>
+    <div className=" vw-100 vh-100">
+      <div className="centrale-landing">
+        <div className="h-100">
           <Image
             src={compositionLeft}
             alt="immagine sinistra"
-            className="w-100"
+            className="h-100"
           />
         </div>
-        <div>
+        <div className="d-flex flex-column align-items-center gap-5">
           <Image src={logo} alt="logo" className="w-50 align-self-center" />
           <h1 className="fredoka fw-bold">Scopri il nostro nuovo social</h1>
-          <Button onClick={handleLoginButton}>Visita</Button>
+          <Button className="gradient w-25" onClick={handleLoginButton}>
+            Visita
+          </Button>
         </div>
-        <div>
+        <div className="h-100">
           <Image
             src={compositionRight}
             alt="immagine destra"
-            className="w-100"
+            className="h-100"
           />
         </div>
       </div>
