@@ -1,20 +1,27 @@
 import logo from '../assets/logo.svg';
-import Button from 'react-bootstrap/Button';
 import heartWhite from '../assets/heart-white.svg';
 import heartPink from '../assets/heart-pink.svg';
 
-export function HeaderShared({ openPreferred }) {
+export function HeaderShared({ openPreferred, preferredAnimals }) {
   return (
     <div
       className='d-flex justify-content-between gradient-header align-items-center px-4'
       style={{ height: 60 }}>
-      <img src={logo} style={{ width: 100 }} />
-      <Button
-        onClick={() => openPreferred()}
-        className='d-flex xs-6 align-items-center justify-content-between rounded-pill '
-        style={{ width: 110, height: 30, backgroundColor: 'transparent' }}>
-        <img src={heartWhite} style={{ width: 24 }} /> Preferiti
-      </Button>
+      <img src={logo} style={{ width: 100 }} alt='logo' />
+      <div className='position-relative'>
+        {preferredAnimals.length > 0 && (
+          <span className='position-absolute top-0 bg-light px-2 rounded-pill fw-bold'>
+            {preferredAnimals.length}
+          </span>
+        )}
+        <button className='btn p-0 ms-2' onClick={() => openPreferred()}>
+          <img
+            src={(preferredAnimals.length > 0 && heartPink) || heartWhite}
+            style={{ width: 44 }}
+            alt='heart'
+          />
+        </button>
+      </div>
     </div>
   );
 }

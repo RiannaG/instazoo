@@ -1,12 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300&family=Work+Sans:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300&family=Work+Sans:wght@300&display=swap');
 
 .workSans {
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
 }
 
 .fredoka {
-  font-family: "Fredoka", sans-serif;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.btn,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  box-shadow: none !important;
+  outline: 0px !important;
 }
 
 #root {
