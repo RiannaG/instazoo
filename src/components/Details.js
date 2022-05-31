@@ -31,23 +31,23 @@ export function Details(props) {
                 </Modal.Title>
               </Modal.Header>
               <ul className='pe-4'>
-                <li className='fs-5'>
+                <li className='fs-6'>
                   <span className='fw-medium'>Latin name: </span>
                   {current_animal?.latin_name}
                 </li>
-                <li className='fs-5'>
+                <li className='fs-6'>
                   <span className='fw-medium'>Geo range: </span>
                   {current_animal?.geo_range}
                 </li>
-                <li className='fs-5'>
+                <li className='fs-6'>
                   <span className='fw-medium'>Type: </span>
                   {current_animal?.animal_type}
                 </li>
-                <li className='fs-5'>
+                <li className='fs-6'>
                   <span className='fw-medium'>Habitat: </span>
                   {current_animal?.habitat}
                 </li>
-                <li className='fs-5'>
+                <li className='fs-6'>
                   <span className='fw-medium'>Diet: </span>
                   {current_animal?.diet}
                 </li>
