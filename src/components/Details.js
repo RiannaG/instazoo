@@ -25,30 +25,30 @@ export function Details(props) {
             <div className='d-flex flex-column justify-content-between w-50'>
               <Modal.Header closeButton className='border-0'>
                 <Modal.Title
-                  className='ps-3 fw-bold text-warning'
+                  className='ps-3 fw-medium text-warning'
                   id='contained-modal-title-vcenter'>
                   {current_animal?.name}
                 </Modal.Title>
               </Modal.Header>
               <ul className='pe-4'>
-                <li>
-                  <span className='fw-bold fs-6'>Latin name: </span>
+                <li className='fs-5'>
+                  <span className='fw-medium'>Latin name: </span>
                   {current_animal?.latin_name}
                 </li>
-                <li>
-                  <span className='fw-bold fs-6'>Geo range: </span>
+                <li className='fs-5'>
+                  <span className='fw-medium'>Geo range: </span>
                   {current_animal?.geo_range}
                 </li>
-                <li>
-                  <span className='fw-bold fs-6'>Type: </span>
+                <li className='fs-5'>
+                  <span className='fw-medium'>Type: </span>
                   {current_animal?.animal_type}
                 </li>
-                <li>
-                  <span className='fw-bold fs-6'>Habitat: </span>
+                <li className='fs-5'>
+                  <span className='fw-medium'>Habitat: </span>
                   {current_animal?.habitat}
                 </li>
-                <li>
-                  <span className='fw-bold fs-6'>Diet: </span>
+                <li className='fs-5'>
+                  <span className='fw-medium'>Diet: </span>
                   {current_animal?.diet}
                 </li>
               </ul>

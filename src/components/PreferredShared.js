@@ -1,5 +1,4 @@
 import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
 import List from './List';
 
 const PreferredShared = (props) => {
@@ -9,6 +8,7 @@ const PreferredShared = (props) => {
 
   return (
     <Modal
+      className='fredoka'
       show={props.show}
       onHide={props.onHide}
       size='lg'
@@ -29,11 +29,10 @@ const PreferredShared = (props) => {
               removeAnimal={removeAnimal}></List>
           </li>
         ))}
-        {props.preferred_animals.length === 0 && <p>Nessun preferito</p>}
+        {props.preferred_animals.length === 0 && (
+          <h3 className='text-center'>No preferreds</h3>
+        )}
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 };

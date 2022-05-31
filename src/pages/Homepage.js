@@ -54,8 +54,10 @@ export function Homepage() {
     const removedPreferred = preferredAnimals.filter(
       (animal) => animal.id !== id
     );
-    console.log(removedPreferred);
-    setPreferredAnimals(removedPreferred);
+
+    setTimeout(() => {
+      setPreferredAnimals(removedPreferred);
+    }, 500);
   };
 
   return (
@@ -65,9 +67,7 @@ export function Homepage() {
         preferredAnimals={preferredAnimals}
       />
       <div className='mt-3'>
-        <h1 className='px-4'>
-          Feed <span className='letterSpacing'>_______</span>
-        </h1>
+        <h1 className='px-4 py-5'>Feed</h1>
         <div className='d-flex max-width m-auto gap-5 justify-content-evenly align-items-around flex-wrap mt-5'>
           {animals.map((animal) => (
             <li key={animal.id}>

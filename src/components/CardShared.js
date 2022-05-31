@@ -1,7 +1,7 @@
 export function CardShared({ animal, openDetail }) {
   return (
     <div>
-      <div className='card shadow' style={{ width: 300, height: 450 }}>
+      <div className='card shadow' style={{ width: 300, height: 500 }}>
         <div>
           <img
             src={animal.image_link}
@@ -15,7 +15,7 @@ export function CardShared({ animal, openDetail }) {
           <span>Geo range: </span>
           <p className='card-text fs-5 text-overflow'>{animal.geo_range}</p>
           <button
-            className='btn btn-outline-primary btn-sm px-5 py-2 rounded-pill align-self-center gradient-header border-0 text-light fs-5 fw-bold text-shadow'
+            className='btn btn-outline-primary btn-sm px-5 py-2 rounded-pill align-self-center gradient-header border-0 text-light fs-5 text-shadow fw-medium'
             onClick={() => openDetail(animal)}>
             Dettagli
           </button>
