@@ -1,8 +1,7 @@
 import { Button } from "react-bootstrap";
 import { Image } from "react-bootstrap";
-import logo from "../assets/logo.svg";
-import compositionLeft from "../assets/composizione-1.png";
-import compositionRight from "../assets/composizione-2.png";
+import logo from "../assets/struzzo-03.png";
+import compositionRight from "../assets/composizione-finale.png";
 import { FooterShared } from "../components/FooterShared";
 import { useNavigate } from "react-router-dom";
 
@@ -13,21 +12,19 @@ export const Landingpage = () => {
   }
 
   return (
-    <div className=" vw-100 vh-100">
+    <div className=" vw-100 vh-100 fredoka gradient">
       <div className="centrale-landing">
-        <div className="h-100">
-          <Image
-            src={compositionLeft}
-            alt="immagine sinistra"
-            className="h-100"
-          />
-        </div>
-        <div className="d-flex flex-column align-items-center gap-5">
-          <Image src={logo} alt="logo" className="w-50 align-self-center" />
-          <h1 className="fredoka fw-bold">Scopri il nostro nuovo social</h1>
-          <Button className="gradient w-25" onClick={handleLoginButton}>
-            Visita
-          </Button>
+        <div className="d-flex flex-column align-items-start gap-5 w-75 h-100 ctn-log">
+          <div>
+            <Image src={logo} alt="logo" className=" logo align-self-center" />
+          </div>
+          <h1 className="text-lnd">Discover our new social network!</h1>
+          <button
+            className="visit-btn fw-bold rounded-pill border-0 py-1 px-5 shadow heartbeat"
+            onClick={handleLoginButton}
+          >
+            Visit
+          </button>
         </div>
         <div className="h-100">
           <Image
