@@ -20,9 +20,7 @@ export function Homepage() {
   }, []);
 
   useEffect(() => {
-    animals.map((animal) => {
-      animal.liked = false;
-    });
+    animals.map((animal) => (animal.liked = false));
   }, [animals]);
 
   const openDetail = (currentAnimal) => {
@@ -32,14 +30,6 @@ export function Homepage() {
   const openPreferred = () => {
     setOpenPreferred(true);
   };
-
-  // const closeDetail = () => {
-  //   setOpenDetail(false);
-  // };
-
-  // const closePreferred = () => {
-  //   setOpenPreferred(false);
-  // };
 
   const closeModal = (modalSet) => {
     modalSet(false);
@@ -54,8 +44,7 @@ export function Homepage() {
     const removedPreferred = preferredAnimals.filter(
       (animal) => animal.id !== id
     );
-
-    setPreferredAnimals(removedPreferred);
+    setTimeout(() => setPreferredAnimals(removedPreferred), 300);
   };
 
   return (
@@ -66,7 +55,7 @@ export function Homepage() {
       />
       <div className='mt-3'>
         <h1 className='px-4 py-5'>Feed</h1>
-        <div className='d-flex max-width m-auto gap-5 justify-content-evenly align-items-around flex-wrap mt-5'>
+        <div className='d-flex max-width gap-4 m-auto justify-content-evenly align-items-around flex-wrap mt-5'>
           {animals.map((animal) => (
             <li key={animal.id}>
               <CardShared animal={animal} openDetail={openDetail} />
