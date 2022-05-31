@@ -2,7 +2,7 @@ import trash from '../assets/trash.png';
 
 const List = ({ animal, removeAnimal }) => {
   return (
-    <div className='d-flex justify-content-between align-items-center scale-out-center'>
+    <div className='d-flex justify-content-between align-items-center'>
       <img src={animal.image_link} alt='' height='100' width='100' />
       <span className='fs-4'>{animal.name}</span>
       <button

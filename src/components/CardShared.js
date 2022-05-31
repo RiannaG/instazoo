@@ -17,7 +17,7 @@ export function CardShared({ animal, openDetail }) {
           <button
             className='btn btn-outline-primary btn-sm px-5 py-2 rounded-pill align-self-center gradient-header border-0 text-light fs-5 text-shadow fw-medium'
             onClick={() => openDetail(animal)}>
-            Dettagli
+            Details
           </button>
         </div>
       </div>

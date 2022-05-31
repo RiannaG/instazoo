@@ -55,9 +55,7 @@ export function Homepage() {
       (animal) => animal.id !== id
     );
 
-    setTimeout(() => {
-      setPreferredAnimals(removedPreferred);
-    }, 500);
+    setPreferredAnimals(removedPreferred);
   };
 
   return (
