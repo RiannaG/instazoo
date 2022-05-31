@@ -5,7 +5,7 @@ import heartPink from '../assets/heart-pink.svg';
 export function HeaderShared({ openPreferred, preferredAnimals }) {
   return (
     <div
-      className='d-flex justify-content-between gradient-header align-items-center px-4'
+      className='d-flex justify-content-between gradient-header align-items-center px-4 shadow'
       style={{ height: 60 }}>
       <img src={logo} style={{ width: 100 }} alt='logo' />
       <div className='position-relative'>

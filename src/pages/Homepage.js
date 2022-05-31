@@ -59,7 +59,7 @@ export function Homepage() {
   };
 
   return (
-    <div>
+    <div className='fredoka'>
       <HeaderShared
         openPreferred={openPreferred}
         preferredAnimals={preferredAnimals}
@@ -68,7 +68,7 @@ export function Homepage() {
         <h1 className='px-4'>
           Feed <span className='letterSpacing'>_______</span>
         </h1>
-        <div className='d-flex justify-content-evenly align-items-around flex-wrap mt-5'>
+        <div className='d-flex max-width m-auto gap-5 justify-content-evenly align-items-around flex-wrap mt-5'>
           {animals.map((animal) => (
             <li key={animal.id}>
               <CardShared animal={animal} openDetail={openDetail} />
@@ -89,6 +89,7 @@ export function Homepage() {
         onHide={() => closeModal(setOpenPreferred)}
         remove_animal={removeAnimal}
       />
+
       <FooterShared />
     </div>
   );
