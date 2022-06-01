@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Work+Sans:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Water+Brush&display=swap");
 
+
 .workSans {
   font-family: "Work Sans", sans-serif;
 }
@@ -18,6 +19,10 @@
   color: #3c3c3b;
 }
 
+.color-title-card{
+  color: #FCBD04 !important;
+}
+
 .btn,
 .btn-primary:focus,
 .btn-primary:active,
@@ -25,6 +30,16 @@
 .btn-outline-primary:active {
   box-shadow: none !important;
   outline: 0px !important;
+}
+
+.background-home{
+  background: url(../src/assets/pattern-ldn.svg);
+}
+
+
+.hr-details{
+  border: 2px solid #FCBD04;
+  opacity: 1 !important;
 }
 
 #root {
@@ -107,11 +122,17 @@
   margin-left: 41px;
 }
 
+
+
 .footer {
-  height: 7%;
-  padding-left: 40px;
-  display: flex;
-  align-items: center;
+
+  position: fixed;
+  bottom:0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  height: 80px;
+  padding: 0 40px;
 }
 
 .gradient-header {
@@ -214,6 +235,14 @@
 }
 
 /* HomePage */
+.padding-bottom{
+  padding-bottom: 100px;
+}
+
+.bg-feed{
+  background-color: #fff;
+}
+
 li {
   list-style: none;
   margin-bottom: 1rem;

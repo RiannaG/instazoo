@@ -2,7 +2,7 @@ export function CardShared({ animal, openDetail }) {
   return (
     <div>
       <div
-        className='card  shadow rounded-card'
+        className=' card  shadow rounded-card'
         style={{ width: 368, height: 500 }}>
         <div>
           <img
@@ -12,10 +12,12 @@ export function CardShared({ animal, openDetail }) {
             alt='...'
           />
         </div>
-        <div className='card-body d-flex flex-column justify-content-around'>
-          <h5 className='card-title fs-3 text-warning'>{animal.name}</h5>
+        <div className=' card-body d-flex flex-column justify-content-around'>
+          <h5 className='card-title fs-3 color-title-card'>{animal.name}</h5>
           <span>Geo range: </span>
-          <p className='card-text fs-5 text-overflow'>{animal.geo_range}</p>
+          <p className=' workSans card-text fs-5 text-overflow'>
+            {animal.geo_range}
+          </p>
           <button
             className='btn px-5 py-2 rounded-pill align-self-center border-0 fs-5 button-dark shadow-sm fw-medium'
             onClick={() => openDetail(animal)}>

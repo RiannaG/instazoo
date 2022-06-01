@@ -14,11 +14,10 @@ const PreferredShared = (props) => {
       size='lg'
       aria-labelledby='contained-modal-title-vcenter'
       centered>
-      <Modal.Header closeButton>
-        <Modal.Title id='contained-modal-title-vcenter'>
-          {props.current_animal?.name}
-        </Modal.Title>
-      </Modal.Header>
+      <Modal.Title id='contained-modal-title-vcenter'>
+        {props.current_animal?.name}
+      </Modal.Title>
+
       <Modal.Body>
         {props.preferred_animals.map((animal, index) => (
           <li key={animal.name + index}>
@@ -30,7 +29,7 @@ const PreferredShared = (props) => {
           </li>
         ))}
         {props.preferred_animals.length === 0 && (
-          <h3 className='text-center'>No preferreds</h3>
+          <h3 className='text-center py-5'>No preferreds :(</h3>
         )}
       </Modal.Body>
     </Modal>

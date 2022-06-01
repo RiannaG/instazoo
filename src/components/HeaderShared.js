@@ -1,4 +1,4 @@
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo-w.svg';
 import heartWhite from '../assets/heart-white.svg';
 import heartPink from '../assets/heart-pink.svg';
 import { Link } from 'react-router-dom';
