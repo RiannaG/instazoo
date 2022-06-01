@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Work+Sans:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Water+Brush&display=swap");
 
-
 .workSans {
   font-family: "Work Sans", sans-serif;
 }
@@ -19,8 +18,8 @@
   color: #3c3c3b;
 }
 
-.color-title-card{
-  color: #FCBD04 !important;
+.color-title-card {
+  color: #fcbd04 !important;
 }
 
 .btn,
@@ -32,13 +31,12 @@
   outline: 0px !important;
 }
 
-.background-home{
+.background-home {
   background: url(../src/assets/pattern-ldn.svg);
 }
 
-
-.hr-details{
-  border: 2px solid #FCBD04;
+.hr-details {
+  border: 2px solid #fcbd04;
   opacity: 1 !important;
 }
 
@@ -57,7 +55,7 @@
 }
 
 .text-shadow {
-  text-shadow: 1px 1px 5px #444;
+  text-shadow: 1px 1px 1px rgba(68, 68, 68, 0.623);
 }
 
 .fw-medium {
@@ -97,10 +95,10 @@
   width: 16ch;
   font-size: 4rem;
   color: #3c3c3b;
-  padding-left: 41px;
+  padding: 41px;
 }
 
-.centrale-landing {
+.ldn-ctn {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,15 +117,12 @@
   background-color: #3c3c3b;
   color: #0febe3;
   font-size: 2.5rem;
-  margin-left: 41px;
+  margin-left: 150px;
 }
 
-
-
 .footer {
-
   position: fixed;
-  bottom:0;
+  bottom: 0;
   left: 0;
   width: 100%;
   background-color: #fff;
@@ -235,11 +230,11 @@
 }
 
 /* HomePage */
-.padding-bottom{
+.padding-bottom {
   padding-bottom: 100px;
 }
 
-.bg-feed{
+.bg-feed {
   background-color: #fff;
 }
 
