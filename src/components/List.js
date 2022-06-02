@@ -17,6 +17,8 @@ const List = ({ animal, removeAnimal }) => {
       }>
       <img src={animal.image_link} alt='' height='100' width='100' />
       <span className='fs-4'>{animal.name}</span>
+
+      {/* TRASH BUTTON */}
       <button
         className='btn shake-bottom'
         onClick={() => {

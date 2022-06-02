@@ -2,66 +2,71 @@ import Modal from 'react-bootstrap/Modal';
 import heartWhite from '../assets/heart-w-l.svg';
 import heartPink from '../assets/heart-p-l.svg';
 
-export function Details(props) {
-  const { current_animal, add_like } = props;
+export function Details({ show, onHide, currentAnimal, addLike }) {
   return (
     <div>
       <Modal
-        show={props.show}
-        onHide={props.onHide}
+        show={show}
+        onHide={onHide}
         size='lg'
         aria-labelledby='contained-modal-title-vcenter'
         centered
         className='fredoka'>
         <Modal.Body>
-          <div className=' d-flex justify-content-evenly '>
+          <div className='d-flex justify-content-evenly'>
+            {/* IMAGE */}
             <div className='w-50'>
               <img
                 className='img-fit w-100 h-100'
-                src={current_animal?.image_link}
-                alt=''
+                src={currentAnimal?.image_link}
+                alt='animal'
               />
             </div>
-            <div className=' d-flex flex-column justify-content-between w-50'>
+
+            {/* CONTENT */}
+            <div className='d-flex flex-column justify-content-between w-50'>
               <div>
                 <Modal.Header closeButton className='border-0'>
                   <Modal.Title
-                    className='ps-3 fw-medium '
+                    className='ps-3 fw-medium'
                     id='contained-modal-title-vcenter'>
-                    {current_animal?.name}
+                    {currentAnimal?.name}
                   </Modal.Title>
                 </Modal.Header>
-                <p className='fw-medium ps-5'>{current_animal?.latin_name}</p>
+                <p className='fw-medium ps-5'>{currentAnimal?.latin_name}</p>
                 <hr className='hr-details w-75 ms-5' />
               </div>
+
+              {/* details list */}
               <div>
-                <ul className='workSans pe-4'>
-                  <li className='fs-6'></li>
-                  <li className='fs-6'>
+                <ul className='workSans pe-4 fs-6'>
+                  <li>
                     <span className='fw-medium'>Geo range: </span>
-                    {current_animal?.geo_range}
+                    {currentAnimal?.geo_range}
                   </li>
-                  <li className='fs-6'>
+                  <li>
                     <span className='fw-medium'>Type: </span>
-                    {current_animal?.animal_type}
+                    {currentAnimal?.animal_type}
                   </li>
-                  <li className='fs-6'>
+                  <li>
                     <span className='fw-medium'>Habitat: </span>
-                    {current_animal?.habitat}
+                    {currentAnimal?.habitat}
                   </li>
-                  <li className='fs-6'>
+                  <li>
                     <span className='fw-medium'>Diet: </span>
-                    {current_animal?.diet}
+                    {currentAnimal?.diet}
                   </li>
                 </ul>
               </div>
+
+              {/* like-button */}
               <button
-                className='btn  jello-horizontal align-self-end'
-                onClick={() => add_like(current_animal)}
-                disabled={current_animal?.liked}>
+                className='btn jello-horizontal align-self-end'
+                onClick={() => addLike(currentAnimal)}
+                disabled={currentAnimal?.liked}>
                 <img
-                  src={(current_animal?.liked && heartPink) || heartWhite}
-                  style={{ width: 32 }}
+                  src={(currentAnimal?.liked && heartPink) || heartWhite}
+                  width='32'
                   alt='heart'
                 />
               </button>

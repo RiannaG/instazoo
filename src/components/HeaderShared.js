@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 
 export function HeaderShared({ openPreferred, preferredAnimals }) {
   return (
-    <div
-      className='d-flex justify-content-between gradient-header align-items-center px-4 shadow'
-      style={{ height: 60 }}>
+    <div className='header-footer-height d-flex justify-content-between gradient-header align-items-center px-4 shadow'>
+      {/* LINK TO HOME */}
       <Link to='/'>
-        <img src={logo} style={{ width: 100 }} alt='logo' />
+        <img src={logo} width='100' alt='logo' />
       </Link>
+
+      {/* LIKE-BADGE */}
       <div className='position-relative'>
         {preferredAnimals.length > 0 && (
           <span className='position-absolute top-0 bg-light px-2 rounded-pill fw-medium'>
@@ -20,7 +21,7 @@ export function HeaderShared({ openPreferred, preferredAnimals }) {
         <button className='btn p-0 ms-2' onClick={() => openPreferred()}>
           <img
             src={(preferredAnimals.length > 0 && heartPink) || heartWhite}
-            style={{ width: 44 }}
+            width='44'
             alt='heart'
           />
         </button>
