@@ -1,14 +1,14 @@
-import { FooterShared } from '../components/FooterShared';
-import { HeaderShared } from '../components/HeaderShared';
-import { CardShared } from '../components/CardShared';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Details } from '../components/Details';
-import notFound from '../assets/not-found.svg';
-import PreferredShared from '../components/PreferredShared';
+import { FooterShared } from "../components/FooterShared";
+import { HeaderShared } from "../components/HeaderShared";
+import { CardShared } from "../components/CardShared";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Details } from "../components/Details";
+import notFound from "../assets/not-found.svg";
+import PreferredShared from "../components/PreferredShared";
 
 export function Homepage() {
-  const URL = 'https://zoo-animal-api.herokuapp.com/animals/rand/8';
+  const URL = "https://zoo-animal-api.herokuapp.com/animals/rand/8";
   const [animals, setAnimals] = useState([]);
   const [detail, setOpenDetail] = useState(false);
   const [preferred, setOpenPreferred] = useState(false);
@@ -16,7 +16,7 @@ export function Homepage() {
   const [preferredAnimals, setPreferredAnimals] = useState([]);
   const [searchedAnimals, setSearchedAnimals] = useState([]);
   const [input, setInput] = useState();
-  const [filterSelection, setFilterSelection] = useState('name');
+  const [filterSelection, setFilterSelection] = useState("name");
 
   // **** GET DATA AND HAD LIKE KEY ****
   useEffect(() => {
@@ -49,12 +49,21 @@ export function Homepage() {
     currentAnimal.liked = true;
   };
 
-  const removeAnimal = (id) => {
+  const removeAnimal = (currentAnimal) => {
     const removedPreferred = preferredAnimals.filter(
-      (animal) => animal.id !== id
+      (animal) => animal.id !== currentAnimal.id
     );
+    currentAnimal.liked = false;
     //function waits the ending of the deleting animation before removing item actually
     setTimeout(() => setPreferredAnimals(removedPreferred), 300);
+  };
+
+  const handleToggle = (currentAnimal) => {
+    if (currentAnimal.liked) {
+      removeAnimal(currentAnimal);
+    } else {
+      addLike(currentAnimal);
+    }
   };
 
   // **** SEARCH-BAR FUNCTIONS ****
@@ -71,7 +80,7 @@ export function Homepage() {
   useEffect(() => {
     //for every change in 'input' or 'selection' filter array
     const matched = animals.filter((animal) =>
-      filterSelection === 'name'
+      filterSelection === "name"
         ? animal.name.toLowerCase().includes(input)
         : animal.geo_range.toLowerCase().includes(input)
     );
@@ -79,7 +88,7 @@ export function Homepage() {
   }, [input, animals, filterSelection]);
 
   return (
-    <div className='fredoka'>
+    <div className="fredoka">
       {/*
        **** HEADER SECTION ****
        */}
@@ -91,36 +100,36 @@ export function Homepage() {
       {/*
        **** MAIN SECTION ****
        */}
-      <div className='h-100 background-home padding-bottom'>
+      <div className="h-100 background-home padding-bottom">
         {/* FEED AND SEARCH-BAR */}
-        <div className='d-flex bg-feed shadow'>
-          <h1 className='py-3 px-4 font-color'>Feed</h1>
-          <div className='d-flex gap-4 align-items-center'>
+        <div className="d-flex bg-feed shadow">
+          <h1 className="py-3 px-4 font-color">Feed</h1>
+          <div className="d-flex gap-4 align-items-center">
             <input
-              className='rounded-pill py-2 ps-4 pe-5 border-0 search-bar fs-5'
-              placeholder='Search animals'
+              className="rounded-pill py-2 ps-4 pe-5 border-0 search-bar fs-5"
+              placeholder="Search animals"
               onChange={handleInput}
             />
 
             {/* RADIO BUTTONS DIV */}
-            <div className='d-flex gap-2 fs-5' onChange={handleSelection}>
+            <div className="d-flex gap-2 fs-5" onChange={handleSelection}>
               Filter by:
               <label>
                 <input
-                  className='me-2'
-                  name='filter'
-                  type='radio'
-                  value='name'
+                  className="me-2"
+                  name="filter"
+                  type="radio"
+                  value="name"
                   defaultChecked
                 />
                 <span>Name</span>
               </label>
               <label>
                 <input
-                  className='me-2'
-                  name='filter'
-                  type='radio'
-                  value='geo_range'
+                  className="me-2"
+                  name="filter"
+                  type="radio"
+                  value="geo_range"
                 />
                 <span>Geo range</span>
               </label>
@@ -129,7 +138,7 @@ export function Homepage() {
         </div>
 
         {/* CARDS CONTAINER */}
-        <div className='d-flex max-width gap-4 m-auto justify-content-evenly align-items-around flex-wrap pt-5'>
+        <div className="d-flex max-width gap-4 m-auto justify-content-evenly align-items-around flex-wrap pt-5">
           {/* if search-bar is empty*/}
           {!input &&
             animals.map((animal) => (
@@ -148,7 +157,7 @@ export function Homepage() {
 
           {/* if search-bar has some content but nothing matching it */}
           {input && searchedAnimals.length < 1 && (
-            <img src={notFound} alt='Not found' />
+            <img src={notFound} alt="Not found" />
           )}
         </div>
       </div>
@@ -157,7 +166,7 @@ export function Homepage() {
       <Details
         show={detail}
         onHide={() => closeModal(setOpenDetail)}
-        addLike={addLike}
+        handleToggle={handleToggle}
         currentAnimal={currentAnimal}
       />
 
