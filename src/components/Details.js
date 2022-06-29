@@ -1,59 +1,61 @@
-import Modal from 'react-bootstrap/Modal';
-import heartWhite from '../assets/heart-w-l.svg';
-import heartPink from '../assets/heart-p-l.svg';
+import Modal from "react-bootstrap/Modal";
+import heartWhite from "../assets/heart-w-l.svg";
+import heartPink from "../assets/heart-p-l.svg";
 
-export function Details({ show, onHide, currentAnimal, addLike }) {
+export function Details({ show, onHide, currentAnimal, handleToggle }) {
   return (
     <div>
       <Modal
         show={show}
         onHide={onHide}
-        size='lg'
-        aria-labelledby='contained-modal-title-vcenter'
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
         centered
-        className='fredoka'>
+        className="fredoka"
+      >
         <Modal.Body>
-          <div className='d-flex justify-content-evenly'>
+          <div className="d-flex justify-content-evenly">
             {/* IMAGE */}
-            <div className='w-50'>
+            <div className="w-50">
               <img
-                className='img-fit w-100 h-100'
+                className="img-fit w-100 h-100"
                 src={currentAnimal?.image_link}
-                alt='animal'
+                alt="animal"
               />
             </div>
 
             {/* CONTENT */}
-            <div className='d-flex flex-column justify-content-between w-50'>
+            <div className="d-flex flex-column justify-content-between w-50">
               <div>
-                <Modal.Header closeButton className='border-0'>
+                <Modal.Header closeButton className="border-0">
                   <Modal.Title
-                    className='ps-3 fw-medium'
-                    id='contained-modal-title-vcenter'>
+                    className="ps-3 fw-medium"
+                    id="contained-modal-title-vcenter"
+                  >
                     {currentAnimal?.name}
                   </Modal.Title>
                 </Modal.Header>
-                <p className='fw-medium ps-5'>{currentAnimal?.latin_name}</p>
-                <hr className='hr-details w-75 ms-5' />
+                <p className="fw-medium ps-5">{currentAnimal?.latin_name}</p>
+                <hr className="hr-details w-75 ms-5" />
               </div>
 
               {/* details list */}
               <div>
-                <ul className='workSans pe-4 fs-6'>
+                <ul className="workSans pe-4 fs-6">
                   <li>
-                    <span className='fw-medium'>Geo range: </span>
+                    <span className="fw-medium">Geo range: </span>
                     {currentAnimal?.geo_range}
                   </li>
                   <li>
-                    <span className='fw-medium'>Type: </span>
+                    <span className="fw-medium">Type: </span>
                     {currentAnimal?.animal_type}
                   </li>
                   <li>
-                    <span className='fw-medium'>Habitat: </span>
+                    <span className="fw-medium">Habitat: </span>
                     {currentAnimal?.habitat}
                   </li>
                   <li>
-                    <span className='fw-medium'>Diet: </span>
+                    <span className="fw-medium">Diet: </span>
                     {currentAnimal?.diet}
                   </li>
                 </ul>
@@ -61,13 +63,14 @@ export function Details({ show, onHide, currentAnimal, addLike }) {
 
               {/* like-button */}
               <button
-                className='btn jello-horizontal align-self-end'
-                onClick={() => addLike(currentAnimal)}
-                disabled={currentAnimal?.liked}>
+                className="btn jello-horizontal align-self-end"
+                onClick={() => handleToggle(currentAnimal)}
+                // disabled={currentAnimal?.liked}
+              >
                 <img
                   src={(currentAnimal?.liked && heartPink) || heartWhite}
-                  width='32'
-                  alt='heart'
+                  width="32"
+                  alt="heart"
                 />
               </button>
             </div>
