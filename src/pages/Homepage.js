@@ -7,6 +7,7 @@ import { Details } from "../components/Details";
 import notFound from "../assets/not-found.svg";
 import PreferredShared from "../components/PreferredShared";
 import { CreateAnimal } from "../components/CreateAnimal";
+import { Edit } from "../components/Edit";
 
 export function Homepage() {
   const URL = "https://zoo-animal-api.herokuapp.com/animals/rand/8";
@@ -19,6 +20,8 @@ export function Homepage() {
   const [input, setInput] = useState();
   const [filterSelection, setFilterSelection] = useState("name");
   const [newAnimal, setNewAnimal] = useState(false);
+  const [edit, setEdit] = useState(false);
+
 
   // **** GET DATA AND HAD LIKE KEY ****
   useEffect(() => {
@@ -43,6 +46,11 @@ export function Homepage() {
 
   const closeModal = (modalSet) => {
     modalSet(false);
+  };
+
+  const openEdit = (currentAnimal) => {
+    setEdit(true);
+    setCurrentAnimal(currentAnimal);
   };
 
   // **** ADD AND REMOVE LIKE ****
@@ -155,7 +163,7 @@ export function Homepage() {
             {!input &&
               animals.map((animal) => (
                 <li key={animal.id}>
-                  <CardShared animal={animal} openDetail={openDetail} />
+                  <CardShared animal={animal} openDetail={openDetail} openEdit={openEdit} />
                 </li>
               ))}
 
@@ -163,7 +171,7 @@ export function Homepage() {
             {input &&
               searchedAnimals.map((animal) => (
                 <li key={animal.id}>
-                  <CardShared animal={animal} openDetail={openDetail} />
+                  <CardShared animal={animal} openDetail={openDetail} openEdit={openEdit} />
                 </li>
               ))}
 
@@ -174,28 +182,37 @@ export function Homepage() {
           </div>
         </div>
 
-        {/*   DETAIL MODAL */}
-        <Details
-          show={detail}
-          onHide={() => closeModal(setOpenDetail)}
-          handleToggle={handleToggle}
-          currentAnimal={currentAnimal}
-        />
-
-        {/* PREFERREDS MODAL */}
-        <PreferredShared
-          preferredAnimals={preferredAnimals}
-          show={preferred}
-          onHide={() => closeModal(setOpenPreferred)}
-          remove_animal={removeAnimal}
-        />
         {/** CREATE MODAL */}
         <CreateAnimal show={newAnimal} onHide={() => closeModal(setNewAnimal)} />
-        {/*
+      </div>
+
+      {/*   DETAIL MODAL */}
+      <Details
+        show={detail}
+        onHide={() => closeModal(setOpenDetail)}
+        handleToggle={handleToggle}
+        currentAnimal={currentAnimal}
+      />
+
+      {/* EDIT MODAL */}
+      <Edit
+        show={edit}
+        onHide={() => closeModal(setEdit)}
+        currentAnimal={currentAnimal}
+      />
+
+      {/* PREFERREDS MODAL */}
+      <PreferredShared
+        preferredAnimals={preferredAnimals}
+        show={preferred}
+        onHide={() => closeModal(setOpenPreferred)}
+        remove_animal={removeAnimal}
+      />
+
+      {/*
        **** FOOTER SECTION ****
        */}
-        <FooterShared />
-      </div>
+      <FooterShared />
     </div>
   );
 }
