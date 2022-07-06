@@ -6,8 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 export const Landingpage = () => {
   const navigate = useNavigate();
-  function handleLoginButton() {
+  function handleVisitButton() {
     navigate('/Homepage');
+  }
+  function handleLoginButton() {
+    navigate('/login');
+  }
+  function handleSignUpButton() {
+    navigate('/signup');
   }
 
   return (
@@ -22,8 +28,18 @@ export const Landingpage = () => {
           </h1>
           <button
             className='visit-btn fw-bold rounded-pill border-0 py-1 px-5 shadow heartbeat'
-            onClick={handleLoginButton}>
+            onClick={handleVisitButton}>
             Visit
+          </button>
+          <button
+            className='visit-btn fw-bold rounded-pill border-0 py-1 px-5 shadow heartbeat'
+            onClick={handleLoginButton}>
+            Log-In
+          </button>
+          <button
+            className='visit-btn fw-bold rounded-pill border-0 py-1 px-5 shadow heartbeat'
+            onClick={handleSignUpButton}>
+            Sign-Up
           </button>
         </div>
         <div className='h-100'>
