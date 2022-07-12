@@ -8,6 +8,7 @@ import notFound from "../assets/not-found.svg";
 import PreferredShared from "../components/PreferredShared";
 import { CreateAnimal } from "../components/CreateAnimal";
 import { Edit } from "../components/Edit";
+import { DeleteModal } from "../components/DeleteModal";
 
 export function Homepage() {
   const URL = "https://zoo-animal-api.herokuapp.com/animals/rand/8";
@@ -21,7 +22,7 @@ export function Homepage() {
   const [filterSelection, setFilterSelection] = useState("name");
   const [newAnimal, setNewAnimal] = useState(false);
   const [edit, setEdit] = useState(false);
-
+  const [del, setDel] = useState(false);
 
   // **** GET DATA AND HAD LIKE KEY ****
   useEffect(() => {
@@ -51,6 +52,10 @@ export function Homepage() {
   const openEdit = (currentAnimal) => {
     setEdit(true);
     setCurrentAnimal(currentAnimal);
+  };
+
+  const openDel = () => {
+    setDel(true);
   };
 
   // **** ADD AND REMOVE LIKE ****
@@ -97,26 +102,25 @@ export function Homepage() {
     setSearchedAnimals(matched);
   }, [input, animals, filterSelection]);
 
-  // **** CREATE ANIMAL **** 
+  // **** CREATE ANIMAL ****
   const openCreateAnimal = () => {
     setNewAnimal(true);
-  }
-
+  };
 
   return (
     <div>
       <div className={"fredoka"}>
         {/*
-       **** HEADER SECTION ****
-       */}
+         **** HEADER SECTION ****
+         */}
         <HeaderShared
           openPreferred={openPreferred}
           preferredAnimals={preferredAnimals}
         />
 
         {/*
-       **** MAIN SECTION ****
-       */}
+         **** MAIN SECTION ****
+         */}
         <div className="h-100 background-home padding-bottom">
           {/* FEED AND SEARCH-BAR */}
           <div className="d-flex justify-content-between bg-feed shadow">
@@ -154,7 +158,9 @@ export function Homepage() {
                 </div>
               </div>
             </div>
-            <button className="rounded border-0" onClick={openCreateAnimal}>create animal</button>
+            <button className="rounded border-0" onClick={openCreateAnimal}>
+              create animal
+            </button>
           </div>
 
           {/* CARDS CONTAINER */}
@@ -163,7 +169,12 @@ export function Homepage() {
             {!input &&
               animals.map((animal) => (
                 <li key={animal.id}>
-                  <CardShared animal={animal} openDetail={openDetail} openEdit={openEdit} />
+                  <CardShared
+                    animal={animal}
+                    openDetail={openDetail}
+                    openEdit={openEdit}
+                    openDel={openDel}
+                  />
                 </li>
               ))}
 
@@ -171,7 +182,12 @@ export function Homepage() {
             {input &&
               searchedAnimals.map((animal) => (
                 <li key={animal.id}>
-                  <CardShared animal={animal} openDetail={openDetail} openEdit={openEdit} />
+                  <CardShared
+                    animal={animal}
+                    openDetail={openDetail}
+                    openEdit={openEdit}
+                    openDel={openDel}
+                  />
                 </li>
               ))}
 
@@ -183,7 +199,10 @@ export function Homepage() {
         </div>
 
         {/** CREATE MODAL */}
-        <CreateAnimal show={newAnimal} onHide={() => closeModal(setNewAnimal)} />
+        <CreateAnimal
+          show={newAnimal}
+          onHide={() => closeModal(setNewAnimal)}
+        />
       </div>
 
       {/*   DETAIL MODAL */}
@@ -208,6 +227,8 @@ export function Homepage() {
         onHide={() => closeModal(setOpenPreferred)}
         remove_animal={removeAnimal}
       />
+
+      <DeleteModal show={del} onHide={() => closeModal(setDel)} />
 
       {/*
        **** FOOTER SECTION ****
