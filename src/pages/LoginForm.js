@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FooterShared } from "../components/FooterShared";
-import compositionRight from "../assets/composizione-finale.png";
 import imgSignup from "../assets/img-signup.png";
 import logo from "../assets/logo-b.png";
 
@@ -39,7 +38,7 @@ const LoginForm = () => {
   const submit = () => {
     setReqStatus("");
 
-    fetch("http://localhost:3000/users/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",

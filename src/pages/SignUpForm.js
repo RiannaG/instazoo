@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FooterShared } from "../components/FooterShared";
 import compositionRight from "../assets/composizione-finale.png";
-
 import logo from "../assets/logo-b.png";
 
 export function SignUpForm() {
@@ -19,8 +18,6 @@ export function SignUpForm() {
     address: "",
     gender: "male",
     age: "",
-
-    remember: false,
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -102,7 +99,7 @@ export function SignUpForm() {
   const submit = () => {
     setReqStatus("");
 
-    fetch("http://localhost:3000/users", {
+    fetch("http://localhost:3000/signup", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
