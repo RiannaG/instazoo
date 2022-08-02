@@ -1,24 +1,53 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FooterShared } from "../components/FooterShared";
 import imgSignup from "../assets/img-signup.png";
 import logo from "../assets/logo-b.png";
 
 const LoginForm = () => {
-  const [reqStatus, setReqStatus] = useState();
+  const { state } = useLocation();
+  const [reqStatus, setReqStatus] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+  const [messageInfo, setMessageInfo] = useState("");
   const [data, setData] = useState({
     username: "",
     password: "",
+    remember: false,
   });
+  const token =
+    JSON.parse(localStorage.getItem("token")) ||
+    JSON.parse(sessionStorage.getItem("token"));
+
+  useEffect(() => {
+    reqStatus.token && redirect();
+  }, [reqStatus]);
+
+  useEffect(() => {
+    loginCheck();
+  }, []);
+
+  useEffect(() => {
+    enableLoginButton();
+    setMessageInfo();
+  }, [data]);
+
+  useEffect(() => {
+    setMessageInfo(reqStatus.message);
+  }, [reqStatus]);
+
+  const navigate = useNavigate();
+
+  function loginCheck() {
+    token && navigate("/Homepage");
+  }
 
   function handleInputChange(event) {
-    const { name, type, value } = event.target;
+    const { name, type, value, checked } = event.target;
 
     setData((data) => {
       return {
         ...data,
-        [name]: value,
+        [name]: type === "checkbox" ? checked : value,
       };
     });
   }
@@ -45,17 +74,19 @@ const LoginForm = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => setReqStatus(data))
       .catch((error) => {
         console.error("Error:", error);
       });
   };
 
-  useEffect(() => {
-    enableLoginButton();
-    setReqStatus("");
-  }, [data]);
+  const redirect = () => {
+    sessionStorage.setItem("token", JSON.stringify(reqStatus.token));
+    data.remember &&
+      localStorage.setItem("token", JSON.stringify(reqStatus.token));
+    navigate("/Homepage");
+  };
 
   const enableLoginButton = () => {
     for (let key in data) {
@@ -97,8 +128,20 @@ const LoginForm = () => {
             value={data.password}
           ></input>
         </label>
+        <label>
+          Remember me
+          <input
+            type="checkbox"
+            name="remember"
+            onChange={handleInputChange}
+            checked={data.remember}
+          />
+        </label>
 
-        <span className={reqStatus && "info"}>{reqStatus}</span>
+        <span>
+          {(messageInfo || state) && "info"}
+          {messageInfo?.message || state?.message}
+        </span>
         <button
           className="submitBtn fredoka rounded-pill"
           onClick={submit}

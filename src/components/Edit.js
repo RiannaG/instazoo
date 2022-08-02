@@ -22,10 +22,7 @@ export function Edit({ show, onHide, currentAnimal }) {
         [name]: value,
       };
     });
-    console.log(input);
   }
-
-  console.log(currentAnimal);
 
   return (
     <div>
@@ -77,7 +74,7 @@ export function Edit({ show, onHide, currentAnimal }) {
               <Form.Control
                 type="text"
                 name="habitat"
-                defaultValue={currentAnimal?.habitat}
+                defaultValue={currentAnimal?.Habitats.name}
                 onChange={handleInputChange}
               />
             </Form.Group>

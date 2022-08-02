@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FooterShared } from "../components/FooterShared";
 import compositionRight from "../assets/composizione-finale.png";
 import logo from "../assets/logo-b.png";
 
 export function SignUpForm() {
-  const [reqStatus, setReqStatus] = useState();
+  const [reqStatus, setReqStatus] = useState("");
   const [errorStatus, setErrorStatus] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
   const [data, setData] = useState({
@@ -19,6 +19,8 @@ export function SignUpForm() {
     gender: "male",
     age: "",
   });
+
+  const navigate = useNavigate();
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -48,6 +50,15 @@ export function SignUpForm() {
       submit();
     }
   }
+
+  useEffect(() => {
+    if (reqStatus.status === "ok") {
+      alert("amogus");
+      navigate("/login", {
+        state: { message: "User created successfully, please login" },
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     setReqStatus("");
@@ -106,7 +117,7 @@ export function SignUpForm() {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => setReqStatus(data))
       .catch((error) => {
         console.error("Error:", error);
@@ -239,7 +250,7 @@ export function SignUpForm() {
           onClick={submit}
           disabled={isDisabled}
         >
-          Sign-In
+          Sign-Up
         </button>
       </div>
       <img className="img-back" src={compositionRight} alt="immagine destra" />
