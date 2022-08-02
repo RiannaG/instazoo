@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import heartWhite from "../assets/heart-w-l.svg";
 import heartPink from "../assets/heart-p-l.svg";
 
-export function Details({ show, onHide, currentAnimal, handleToggle }) {
+export function Details({ show, onHide, currentAnimal, handleToggle, token }) {
   return (
     <div>
       <Modal
@@ -19,7 +19,7 @@ export function Details({ show, onHide, currentAnimal, handleToggle }) {
             <div className="w-50">
               <img
                 className="img-fit w-100 h-100"
-                src={currentAnimal?.image_link}
+                src={`http://localhost:3000/${currentAnimal?.image_link}`}
                 alt="animal"
               />
             </div>
@@ -52,7 +52,7 @@ export function Details({ show, onHide, currentAnimal, handleToggle }) {
                   </li>
                   <li>
                     <span className="fw-medium">Habitat: </span>
-                    {currentAnimal?.habitat}
+                    {currentAnimal?.Habitats.name}
                   </li>
                   <li>
                     <span className="fw-medium">Diet: </span>
@@ -65,7 +65,7 @@ export function Details({ show, onHide, currentAnimal, handleToggle }) {
               <button
                 className="btn jello-horizontal align-self-end"
                 onClick={() => handleToggle(currentAnimal)}
-                // disabled={currentAnimal?.liked}
+                disabled={!token && true}
               >
                 <img
                   src={(currentAnimal?.liked && heartPink) || heartWhite}

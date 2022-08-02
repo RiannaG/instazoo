@@ -11,7 +11,7 @@ import { Edit } from "../components/Edit";
 import { DeleteModal } from "../components/DeleteModal";
 
 export function Homepage() {
-  const URL = "https://zoo-animal-api.herokuapp.com/animals/rand/8";
+  const URL = "http://localhost:3000/animals";
   const [animals, setAnimals] = useState([]);
   const [detail, setOpenDetail] = useState(false);
   const [preferred, setOpenPreferred] = useState(false);
@@ -23,6 +23,10 @@ export function Homepage() {
   const [newAnimal, setNewAnimal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
+
+  const token =
+    JSON.parse(localStorage.getItem("token")) ||
+    JSON.parse(sessionStorage.getItem("token"));
 
   // **** GET DATA AND HAD LIKE KEY ****
   useEffect(() => {
@@ -116,6 +120,7 @@ export function Homepage() {
         <HeaderShared
           openPreferred={openPreferred}
           preferredAnimals={preferredAnimals}
+          token={token}
         />
 
         {/*
@@ -158,7 +163,11 @@ export function Homepage() {
                 </div>
               </div>
             </div>
-            <button className="rounded border-0" onClick={openCreateAnimal}>
+            <button
+              className="rounded border-0"
+              onClick={openCreateAnimal}
+              disabled={!token && true}
+            >
               create animal
             </button>
           </div>
@@ -174,6 +183,7 @@ export function Homepage() {
                     openDetail={openDetail}
                     openEdit={openEdit}
                     openDel={openDel}
+                    token={token}
                   />
                 </li>
               ))}
@@ -198,20 +208,20 @@ export function Homepage() {
           </div>
         </div>
 
+        {/*   DETAIL MODAL */}
+        <Details
+          show={detail}
+          onHide={() => closeModal(setOpenDetail)}
+          handleToggle={handleToggle}
+          currentAnimal={currentAnimal}
+        />
+
         {/** CREATE MODAL */}
         <CreateAnimal
           show={newAnimal}
           onHide={() => closeModal(setNewAnimal)}
         />
       </div>
-
-      {/*   DETAIL MODAL */}
-      <Details
-        show={detail}
-        onHide={() => closeModal(setOpenDetail)}
-        handleToggle={handleToggle}
-        currentAnimal={currentAnimal}
-      />
 
       {/* EDIT MODAL */}
       <Edit

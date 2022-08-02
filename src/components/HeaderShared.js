@@ -3,7 +3,7 @@ import heartWhite from "../assets/heart-white.svg";
 import heartPink from "../assets/heart-pink.svg";
 import { Link } from "react-router-dom";
 
-export function HeaderShared({ openPreferred, preferredAnimals }) {
+export function HeaderShared({ openPreferred, preferredAnimals, token }) {
   return (
     <div className="header-footer-height d-flex justify-content-between gradient-header align-items-center px-4 shadow">
       {/* LINK TO HOME */}
@@ -19,11 +19,13 @@ export function HeaderShared({ openPreferred, preferredAnimals }) {
           </span>
         )}
         <button className="btn p-0 ms-2" onClick={() => openPreferred()}>
-          <img
-            src={(preferredAnimals.length > 0 && heartPink) || heartWhite}
-            width="44"
-            alt="heart"
-          />
+          {token && (
+            <img
+              src={(preferredAnimals.length > 0 && heartPink) || heartWhite}
+              width="44"
+              alt="heart"
+            />
+          )}
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { ReactComponent as Edit } from "../assets/edit.svg";
 import { ReactComponent as Delete } from "../assets/delete.svg";
 
-export function CardShared({ animal, openDetail, openEdit, openDel }) {
+export function CardShared({ animal, openDetail, openEdit, openDel, token }) {
   const { name, geo_range, image_link } = animal;
 
   return (
@@ -13,7 +13,7 @@ export function CardShared({ animal, openDetail, openEdit, openDel }) {
         <div>
           {/* CARD IMAGE */}
           <img
-            src={image_link}
+            src={`http://localhost:3000/${image_link}`}
             className="card-img-top rounded-img-top"
             height="280"
             alt="animal"
@@ -34,14 +34,19 @@ export function CardShared({ animal, openDetail, openEdit, openDel }) {
               Details
             </button>
             <div>
-              <Edit
-                className="shake-bottom edit-btn"
-                onClick={() => openEdit(animal)}
-              />
-              <Delete
-                className="edit-btn rotate-scale-down"
-                onClick={() => openDel(animal)}
-              />
+              {token && (
+                <Edit
+                  className="shake-bottom edit-btn"
+                  onClick={() => openEdit(animal)}
+                />
+              )}
+
+              {token && (
+                <Delete
+                  className="edit-btn rotate-scale-down"
+                  onClick={() => openDel(animal)}
+                />
+              )}
             </div>
           </div>
         </div>
