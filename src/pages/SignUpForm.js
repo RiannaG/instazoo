@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FooterShared } from "../components/FooterShared";
+import compositionRight from "../assets/composizione-finale.png";
+
+import logo from "../assets/logo-b.png";
 
 export function SignUpForm() {
   const [reqStatus, setReqStatus] = useState();
   const [errorStatus, setErrorStatus] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
   const [data, setData] = useState({
-    name: '',
-    surname: '',
-    username: '',
-    password: '',
-    email: '',
-    city: '',
-    address: '',
-    gender: 'male',
-    age: '',
+    name: "",
+    surname: "",
+    username: "",
+    password: "",
+    email: "",
+    city: "",
+    address: "",
+    gender: "male",
+    age: "",
 
     remember: false,
   });
 
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   function handleInputChange(event) {
     const { name, type, value, checked } = event.target;
@@ -27,7 +31,7 @@ export function SignUpForm() {
     setData((data) => {
       return {
         ...data,
-        [name]: type === 'checkbox' ? checked : value,
+        [name]: type === "checkbox" ? checked : value,
       };
     });
   }
@@ -38,7 +42,7 @@ export function SignUpForm() {
   }
 
   function handleSpacebar(event) {
-    if (event.key === ' ') {
+    if (event.key === " ") {
       event.preventDefault();
     }
   }
@@ -49,7 +53,7 @@ export function SignUpForm() {
   }
 
   useEffect(() => {
-    setReqStatus('');
+    setReqStatus("");
   }, [data]);
 
   useEffect(() => {
@@ -58,100 +62,109 @@ export function SignUpForm() {
 
   const dataFormValidation = () => {
     for (let key in data) {
-      if (key !== 'address' && data[key] === '') {
-        setErrorStatus('Fields with * are mandatory');
+      if (key !== "address" && data[key] === "") {
+        setErrorStatus("Fields with * are mandatory");
         setIsDisabled(true);
         return;
       }
     }
 
     if (data.age.match(/[^0-9]/) || data.age < 15 || data.age > 99) {
-      setErrorStatus('Must be a number between 15 and 99');
+      setErrorStatus("Must be a number between 15 and 99");
       setIsDisabled(true);
       return;
     }
 
     if (data.password.length < 8) {
       setErrorStatus(
-        'Password too short, minimum 8 characters, numbers and symbol'
+        "Password too short, minimum 8 characters, numbers and symbol"
       );
       setIsDisabled(true);
       return;
     }
 
     if (confirmPassword !== data.password) {
-      setErrorStatus('Password not match');
+      setErrorStatus("Password not match");
       setIsDisabled(true);
       return;
     }
 
     if (!data.email.match(/\S+@\S+\.\S+/)) {
-      setErrorStatus('Invalid email');
+      setErrorStatus("Invalid email");
       setIsDisabled(true);
       return;
     }
-    setErrorStatus('');
+    setErrorStatus("");
     setIsDisabled(false);
     return;
   };
 
   const submit = () => {
-    setReqStatus('');
+    setReqStatus("");
 
-    fetch('http://localhost:3000/users', {
-      method: 'POST', // or 'PUT'
+    fetch("http://localhost:3000/users", {
+      method: "POST", // or 'PUT'
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.text())
       .then((data) => setReqStatus(data))
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
   return (
-    <div>
-      <Link to='/'>Back to home</Link> | <Link to='/login'>Login</Link>
-      <div className='form' onKeyDown={handleEnter}>
+    <div className="form-container">
+      <Link className="link-path fredoka rounded-pill" to="/">
+        Back to home
+      </Link>
+      <Link className="link-path fredoka rounded-pill" to="/login">
+        Login
+      </Link>
+      <img src={logo} alt="logo" className="logo-forms" />
+      <div className="form fredoka" onKeyDown={handleEnter}>
         <h2>Sign-Up</h2>
         <label>
           Name*:
           <input
             onChange={handleInputChange}
             // onKeyDown={handleSpacebar}
-            name='name'
-            value={data.name}></input>
+            name="name"
+            value={data.name}
+          ></input>
         </label>
         <label>
           Surname*:
           <input
             onChange={handleInputChange}
             // onKeyDown={handleSpacebar}
-            name='surname'
-            value={data.surname}></input>
+            name="surname"
+            value={data.surname}
+          ></input>
         </label>
         <label>
           Username*:
           <input
             onChange={handleInputChange}
             onKeyDown={handleSpacebar}
-            name='username'
-            value={data.username}></input>
+            name="username"
+            value={data.username}
+          ></input>
         </label>
-        <section className='small-input'>
+        <section className="small-input fredoka">
           <label>
             Gender*:
             <select
-              className='select'
+              className="select"
               onChange={handleInputChange}
-              name='gender'
-              value={data.gender}>
-              <option value={'male'}>Male</option>
-              <option value={'female'}>Female</option>
-              <option value={'strange'}>Strange</option>
+              name="gender"
+              value={data.gender}
+            >
+              <option value={"male"}>Male</option>
+              <option value={"female"}>Female</option>
             </select>
           </label>
           <label>
@@ -159,50 +172,56 @@ export function SignUpForm() {
             <input
               onChange={handleInputChange}
               onKeyDown={handleSpacebar}
-              name='age'
-              value={data.age}></input>
+              name="age"
+              value={data.age}
+            ></input>
           </label>
         </section>
         <label>
           Password*:
           <input
-            type='password'
+            type="password"
             onChange={handleInputChange}
             onKeyDown={handleSpacebar}
-            name='password'
-            value={data.password}></input>
+            name="password"
+            value={data.password}
+          ></input>
         </label>
         <label>
           Confirm password*:
           <input
-            type='password'
+            type="password"
             onChange={handleConfirmPassword}
             onKeyDown={handleSpacebar}
-            name='confirm_password'
-            value={confirmPassword}></input>
+            name="confirm_password"
+            value={confirmPassword}
+          ></input>
         </label>
         <label>
           Email*:
           <input
-            type='email'
+            type="email"
             onChange={handleInputChange}
             onKeyDown={handleSpacebar}
-            name='email'
-            value={data.email}></input>
+            name="email"
+            value={data.email}
+          ></input>
         </label>
         <label>
           City*:
           <input
             onChange={handleInputChange}
-            name='city'
-            value={data.city}></input>
+            name="city"
+            value={data.city}
+          ></input>
         </label>
         <label>
           Address:
           <input
             onChange={handleInputChange}
-            name='address'
-            value={data.address}></input>
+            name="address"
+            value={data.address}
+          ></input>
         </label>
 
         {/* <label>
@@ -215,13 +234,19 @@ export function SignUpForm() {
             type='checkbox'></input>
         </label> */}
 
-        <span className={(errorStatus || reqStatus) && 'info'}>
+        <span className={(errorStatus || reqStatus) && "info"}>
           {errorStatus || reqStatus}
         </span>
-        <button className='submitBtn' onClick={submit} disabled={isDisabled}>
+        <button
+          className="submitBtn rounded-pill"
+          onClick={submit}
+          disabled={isDisabled}
+        >
           Sign-In
         </button>
       </div>
+      <img className="img-back" src={compositionRight} alt="immagine destra" />
+      <FooterShared />
     </div>
   );
 }
