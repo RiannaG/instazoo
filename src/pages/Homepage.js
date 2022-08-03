@@ -1,17 +1,17 @@
-import { FooterShared } from '../components/FooterShared';
-import { HeaderShared } from '../components/HeaderShared';
-import { CardShared } from '../components/CardShared';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Details } from '../components/Details';
-import notFound from '../assets/not-found.svg';
-import PreferredShared from '../components/PreferredShared';
-import { CreateAnimal } from '../components/CreateAnimal';
-import { Edit } from '../components/Edit';
-import { DeleteModal } from '../components/DeleteModal';
+import { FooterShared } from "../components/FooterShared";
+import { HeaderShared } from "../components/HeaderShared";
+import { CardShared } from "../components/CardShared";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Details } from "../components/Details";
+import notFound from "../assets/not-found.svg";
+import PreferredShared from "../components/PreferredShared";
+import { CreateAnimal } from "../components/CreateAnimal";
+import { Edit } from "../components/Edit";
+import { DeleteModal } from "../components/DeleteModal";
 
 export function Homepage() {
-  const URL = 'http://localhost:3000/animals';
+  const URL = "http://localhost:3000/animals";
   const [animals, setAnimals] = useState([]);
   const [detail, setOpenDetail] = useState(false);
   const [preferred, setOpenPreferred] = useState(false);
@@ -19,14 +19,14 @@ export function Homepage() {
   const [preferredAnimals, setPreferredAnimals] = useState([]);
   const [searchedAnimals, setSearchedAnimals] = useState([]);
   const [input, setInput] = useState();
-  const [filterSelection, setFilterSelection] = useState('name');
+  const [filterSelection, setFilterSelection] = useState("name");
   const [newAnimal, setNewAnimal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
 
   const token =
-    JSON.parse(localStorage.getItem('token')) ||
-    JSON.parse(sessionStorage.getItem('token'));
+    JSON.parse(localStorage.getItem("token")) ||
+    JSON.parse(sessionStorage.getItem("token"));
 
   // **** GET DATA AND HAD LIKE KEY ****
   useEffect(() => {
@@ -99,7 +99,7 @@ export function Homepage() {
   useEffect(() => {
     //for every change in 'input' or 'selection' filter array
     const matched = animals.filter((animal) =>
-      filterSelection === 'name'
+      filterSelection === "name"
         ? animal.name.toLowerCase().includes(input)
         : animal.geo_range.toLowerCase().includes(input)
     );
@@ -113,7 +113,7 @@ export function Homepage() {
 
   return (
     <div>
-      <div className={'fredoka'}>
+      <div className={"fredoka"}>
         {/*
          **** HEADER SECTION ****
          */}
@@ -126,37 +126,37 @@ export function Homepage() {
         {/*
          **** MAIN SECTION ****
          */}
-        <div className='h-100 background-home padding-bottom'>
+        <div className="h-100 background-home padding-bottom">
           {/* FEED AND SEARCH-BAR */}
-          <div className='d-flex justify-content-between bg-feed shadow'>
-            <div className='d-flex bg-feed'>
-              <h1 className='py-3 px-4 font-color'>Feed</h1>
-              <div className='d-flex gap-4 align-items-center'>
+          <div className="d-flex justify-content-between bg-feed shadow">
+            <div className="d-flex bg-feed">
+              <h1 className="py-3 px-4 font-color">Feed</h1>
+              <div className="d-flex gap-4 align-items-center">
                 <input
-                  className='rounded-pill py-2 ps-4 pe-5 border-0 search-bar fs-5'
-                  placeholder='Search animals'
+                  className="rounded-pill py-2 ps-4 pe-5 border-0 search-bar fs-5"
+                  placeholder="Search animals"
                   onChange={handleInput}
                 />
 
                 {/* RADIO BUTTONS DIV */}
-                <div className='d-flex gap-2 fs-5' onChange={handleSelection}>
+                <div className="d-flex gap-2 fs-5" onChange={handleSelection}>
                   Filter by:
                   <label>
                     <input
-                      className='me-2'
-                      name='filter'
-                      type='radio'
-                      value='name'
+                      className="me-2"
+                      name="filter"
+                      type="radio"
+                      value="name"
                       defaultChecked
                     />
                     <span>Name</span>
                   </label>
                   <label>
                     <input
-                      className='me-2'
-                      name='filter'
-                      type='radio'
-                      value='geo_range'
+                      className="me-2"
+                      name="filter"
+                      type="radio"
+                      value="geo_range"
                     />
                     <span>Geo range</span>
                   </label>
@@ -164,15 +164,16 @@ export function Homepage() {
               </div>
             </div>
             <button
-              className='rounded border-0'
+              className="rounded border-0"
               onClick={openCreateAnimal}
-              disabled={!token && true}>
+              disabled={!token && true}
+            >
               create animal
             </button>
           </div>
 
           {/* CARDS CONTAINER */}
-          <div className='d-flex max-width gap-4 m-auto justify-content-evenly align-items-around flex-wrap pt-5'>
+          <div className="d-flex max-width gap-4 m-auto justify-content-evenly align-items-around flex-wrap pt-5">
             {/* if search-bar is empty*/}
             {!input &&
               animals.map((animal) => (
@@ -202,7 +203,7 @@ export function Homepage() {
 
             {/* if search-bar has some content but nothing matching it */}
             {input && searchedAnimals.length < 1 && (
-              <img src={notFound} alt='Not found' />
+              <img src={notFound} alt="Not found" />
             )}
           </div>
         </div>
@@ -224,12 +225,15 @@ export function Homepage() {
       </div>
 
       {/* EDIT MODAL */}
-      <Edit
-        show={edit}
-        token={token}
-        onHide={() => closeModal(setEdit)}
-        currentAnimal={currentAnimal}
-      />
+
+      {edit && (
+        <Edit
+          show={edit}
+          token={token}
+          onHide={() => closeModal(setEdit)}
+          currentAnimal={currentAnimal}
+        />
+      )}
 
       {/* PREFERREDS MODAL */}
       <PreferredShared
@@ -239,7 +243,7 @@ export function Homepage() {
         remove_animal={removeAnimal}
       />
 
-      <DeleteModal show={del} onHide={() => closeModal(setDel)} />
+      {del && <DeleteModal show={del} onHide={() => closeModal(setDel)} />}
 
       {/*
        **** FOOTER SECTION ****
