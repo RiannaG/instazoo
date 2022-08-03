@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import habitats from '../assets/habitats.json';
 
-export function Edit({ show, onHide, currentAnimal }) {
+export function Edit({ show, onHide, currentAnimal, token }) {
+  const [reqStatus, setReqStatus] = useState();
   const [input, setInput] = useState({
-    name: currentAnimal?.name,
-    latinName: currentAnimal?.latin_name,
-    type: currentAnimal?.animal_type,
-    habitat: currentAnimal?.habitat,
-    diet: currentAnimal?.diet,
-    geoRange: currentAnimal?.geo_range,
-    img: currentAnimal?.image_link,
+    name: '',
+    latin_name: '',
+    animal_type: '',
+    habitat_id: '',
+    diet: '',
+    geo_range: '',
+    image_link: '',
   });
+
+  const [file, setFile] = useState();
 
   function handleInputChange(event) {
     const { name, type, value } = event.target;
@@ -24,107 +28,137 @@ export function Edit({ show, onHide, currentAnimal }) {
     });
   }
 
+  useEffect(() => {
+    setInput({
+      name: currentAnimal?.name,
+      latin_name: currentAnimal?.latin_name,
+      animal_type: currentAnimal?.animal_type,
+      habitat_id: currentAnimal?.habitat_id,
+      diet: currentAnimal?.diet,
+      geo_range: currentAnimal?.geo_range,
+      image_link: currentAnimal?.image_link,
+    });
+  }, [currentAnimal]);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  // useEffect(() => {
+  //   const number = parseInt(input.habitat_id);
+  //   input.habitat_id = number;
+  //   console.log(input.habitat_id);
+  // }, [input.habitat_id]);
+
+  function uploadPhoto(event) {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('animal', input);
+    formData.append('image', file);
+    fetch(`http://localhost:3000/animals/${currentAnimal?.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: token,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => setReqStatus(data))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
   return (
-    <div>
-      <Modal show={show} onHide={onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Animal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Animal Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                defaultValue={currentAnimal?.name}
-                onChange={handleInputChange}
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Latin Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="latinName"
-                defaultValue={currentAnimal?.latin_name}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Type</Form.Label>
-              <Form.Control
-                type="text"
-                name="type"
-                defaultValue={currentAnimal?.animal_type}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Habitat</Form.Label>
-              <Form.Control
-                type="text"
-                name="habitat"
-                defaultValue={currentAnimal?.Habitats.name}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Diet</Form.Label>
-              <Form.Control
-                type="text"
-                name="diet"
-                defaultValue={currentAnimal?.diet}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Geo Range</Form.Label>
-              <Form.Control
-                type="text"
-                name="geoRange"
-                defaultValue={currentAnimal?.geo_range}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Animal Image</Form.Label>
-              <Form.Control
-                type="text"
-                name="img"
-                defaultValue={currentAnimal?.image_link}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <button variant="secondary" onClick={onHide}>
-            Close
-          </button>
-          <button variant="primary" onClick={onHide}>
-            Save Changes
-          </button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+    <Modal show={show} onHide={onHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Modal heading</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <div className='px-3 my-4'>
+            <h6>Animal Name</h6>
+            <input
+              name='name'
+              type='text'
+              value={input.name}
+              className='px-5'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Latin Name</h6>
+            <input
+              name='latin_name'
+              type='text'
+              value={input.latin_name}
+              className='px-5'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Type</h6>
+            <input
+              name='animal_type'
+              value={input.animal_type}
+              className='px-5'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Habitat</h6>
+
+            <select
+              name='habitat_id'
+              value={input.habitat_id}
+              className='px-5'
+              onChange={handleInputChange}>
+              {habitats.map((habitat, index) => (
+                <option key={index} value={index + 99}>
+                  {habitat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Diet</h6>
+            <input
+              name='diet'
+              value={input.diet}
+              className='px-5'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Geo Range</h6>
+            <input
+              name='geo_range'
+              value={input.geo_range}
+              className='px-5'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='px-3 my-4'>
+            <h6>Animal Image</h6>
+
+            {/* <input
+              type='file'
+              name='image'
+              // value={input.image_link}
+              className='px-5'
+              onChange={
+                handleFileChange
+                // handleInput();
+              }
+            /> */}
+          </div>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <button variant='primary' onClick={uploadPhoto}>
+          Save Changes
+        </button>
+      </Modal.Footer>
+    </Modal>
   );
 }
