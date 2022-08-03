@@ -14,7 +14,6 @@ export function Edit({ show, onHide, currentAnimal, token }) {
     diet: "",
     geo_range: "",
     image_link: "",
-    image: file,
   });
 
   function handleInputChange(event) {
@@ -41,15 +40,15 @@ export function Edit({ show, onHide, currentAnimal, token }) {
   }, [currentAnimal]);
 
   const handleFileChange = (event) => {
-    //setFile(event.target.files[0]);
-    const { image } = input;
+    setFile(event.target.files[0]);
+    // const { image } = input;
 
-    setInput((input) => {
-      return {
-        ...input,
-        [image]: event.target.files[0],
-      };
-    });
+    // setInput((input) => {
+    //   return {
+    //     ...input,
+    //     [image]: event.target.files[0],
+    //   };
+    // });
   };
 
   useEffect(() => {
@@ -60,15 +59,16 @@ export function Edit({ show, onHide, currentAnimal, token }) {
 
   function uploadPhoto(event) {
     event.preventDefault();
-    // const formData = new FormData();
-    // formData.append("animal", input);
-    // formData.append("image", file);
+    const formData = new FormData();
+    formData.append("animal", input);
+    formData.append("image", file);
+    console.log(formData);
     fetch(`http://localhost:3000/animals/${currentAnimal?.id}`, {
       method: "PATCH",
       headers: {
         Authorization: token,
       },
-      body: input,
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => setReqStatus(data))
