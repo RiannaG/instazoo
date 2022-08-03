@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FooterShared } from "../components/FooterShared";
-import imgSignup from "../assets/img-signup.png";
-import logo from "../assets/logo-b.png";
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FooterShared } from '../components/FooterShared';
+import imgSignup from '../assets/img-signup.png';
+import logo from '../assets/logo-b.png';
 
 const LoginForm = () => {
   const { state } = useLocation();
-  const [reqStatus, setReqStatus] = useState("");
+  const [reqStatus, setReqStatus] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const [messageInfo, setMessageInfo] = useState("");
+  const [messageInfo, setMessageInfo] = useState('');
   const [data, setData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
     remember: false,
   });
   const token =
-    JSON.parse(localStorage.getItem("token")) ||
-    JSON.parse(sessionStorage.getItem("token"));
+    JSON.parse(localStorage.getItem('token')) ||
+    JSON.parse(sessionStorage.getItem('token'));
 
   useEffect(() => {
     reqStatus.token && redirect();
@@ -38,7 +38,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   function loginCheck() {
-    token && navigate("/Homepage");
+    token && navigate('/Homepage');
   }
 
   function handleInputChange(event) {
@@ -47,13 +47,13 @@ const LoginForm = () => {
     setData((data) => {
       return {
         ...data,
-        [name]: type === "checkbox" ? checked : value,
+        [name]: type === 'checkbox' ? checked : value,
       };
     });
   }
 
   function handleSpacebar(event) {
-    if (event.key === " ") {
+    if (event.key === ' ') {
       event.preventDefault();
     }
   }
@@ -65,39 +65,32 @@ const LoginForm = () => {
   }
 
   const submit = () => {
-    setReqStatus("");
+    setReqStatus('');
 
-    fetch("http://localhost:3000/login", {
-      method: "POST", // or 'PUT'
+    fetch('http://localhost:3000/login', {
+      method: 'POST', // or 'PUT'
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => setReqStatus(data))
       .catch((error) => {
-        console.error("Error:", error);
-        if (
-          data.username ||
-          data.password !== reqStatus.username ||
-          reqStatus.password
-        ) {
-          setMessageInfo("Credentials are wrong");
-        }
+        setMessageInfo(`Something gone wrong: ${error.message}`);
       });
   };
 
   const redirect = () => {
-    sessionStorage.setItem("token", JSON.stringify(reqStatus.token));
+    sessionStorage.setItem('token', JSON.stringify(reqStatus.token));
     data.remember &&
-      localStorage.setItem("token", JSON.stringify(reqStatus.token));
-    navigate("/Homepage");
+      localStorage.setItem('token', JSON.stringify(reqStatus.token));
+    navigate('/Homepage');
   };
 
   const enableLoginButton = () => {
     for (let key in data) {
-      if (data[key] === "") {
+      if (data[key] === '') {
         setIsDisabled(true);
         return 1;
       }
@@ -106,40 +99,38 @@ const LoginForm = () => {
   };
 
   return (
-    <div class="form-container">
-      <Link className="link-path fredoka rounded-pill" to="/">
+    <div class='form-container'>
+      <Link className='link-path fredoka rounded-pill' to='/'>
         Back to home
       </Link>
-      <Link className="link-path fredoka rounded-pill" to="/signup">
+      <Link className='link-path fredoka rounded-pill' to='/signup'>
         Sign-In
       </Link>
-      <img src={logo} alt="logo" className="logo-forms" />
-      <div className="form form-login" onKeyDown={handleEnter}>
+      <img src={logo} alt='logo' className='logo-forms' />
+      <div className='form form-login' onKeyDown={handleEnter}>
         <h2>Login</h2>
         <label>
           Username:
           <input
             onChange={handleInputChange}
             onKeyDown={handleSpacebar}
-            name="username"
-            value={data.username}
-          ></input>
+            name='username'
+            value={data.username}></input>
         </label>
         <label>
           Password:
           <input
-            type="password"
+            type='password'
             onChange={handleInputChange}
             onKeyDown={handleSpacebar}
-            name="password"
-            value={data.password}
-          ></input>
+            name='password'
+            value={data.password}></input>
         </label>
         <label>
           Remember me
           <input
-            type="checkbox"
-            name="remember"
+            type='checkbox'
+            name='remember'
             onChange={handleInputChange}
             checked={data.remember}
           />
@@ -150,17 +141,16 @@ const LoginForm = () => {
           {messageInfo?.message || state?.message}
         </span>
         <button
-          className="submitBtn fredoka rounded-pill"
+          className='submitBtn fredoka rounded-pill'
           onClick={submit}
-          disabled={isDisabled}
-        >
+          disabled={isDisabled}>
           Login
         </button>
       </div>
       <img
-        className="img-back modifica"
+        className='img-back modifica'
         src={imgSignup}
-        alt="immagine destra"
+        alt='immagine destra'
       />
       <FooterShared />
     </div>
