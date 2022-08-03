@@ -78,6 +78,13 @@ const LoginForm = () => {
       .then((data) => setReqStatus(data))
       .catch((error) => {
         console.error("Error:", error);
+        if (
+          data.username ||
+          data.password !== reqStatus.username ||
+          reqStatus.password
+        ) {
+          setMessageInfo("Credentials are wrong");
+        }
       });
   };
 
@@ -139,7 +146,7 @@ const LoginForm = () => {
         </label>
 
         <span>
-          {(messageInfo || state) && "info"}
+          {(messageInfo || state) && messageInfo}
           {messageInfo?.message || state?.message}
         </span>
         <button
