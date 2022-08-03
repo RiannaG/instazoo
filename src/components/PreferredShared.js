@@ -13,7 +13,7 @@ const PreferredShared = ({
   const removeAnimal = (animal) => {
     remove_animal(animal);
   };
-  const [prefferedList, setPrefferedList] = useState([]);
+  const [preferredList, setPreferredList] = useState([]);
 
   function getPreferreds() {
     user_id &&
@@ -23,7 +23,7 @@ const PreferredShared = ({
         },
       })
         .then((response) => response.json())
-        .then((data) => setPrefferedList(data))
+        .then((data) => setPreferredList(data))
         .catch((error) => {
           console.error('Error:', error);
         });
@@ -31,7 +31,7 @@ const PreferredShared = ({
 
   useEffect(() => {
     getPreferreds();
-  }, [user_id]);
+  }, [user_id, show]);
 
   return (
     <Modal
@@ -45,19 +45,20 @@ const PreferredShared = ({
         <h3 className='color-title-card text-shadow'>Preferred Animals</h3>
       </Modal.Header>
       <Modal.Body>
-        {prefferedList.map((animal, index) => (
+        {preferredList.map((animal, index) => (
           <li key={animal.id + index}>
             <List
               animal={animal}
               token={token}
               user_id={user_id}
-              animalId={animal.id}
-              removeAnimal={() => removeAnimal(animal)}></List>
+              refreshList={getPreferreds}
+              // removeAnimal={() => removeAnimal(animal)}
+            ></List>
           </li>
         ))}
 
         {/* message if preferreds is empty */}
-        {prefferedList.length === 0 && (
+        {preferredList.length === 0 && (
           <h3 className='text-center py-5'>No preferreds &#128546;</h3>
         )}
       </Modal.Body>

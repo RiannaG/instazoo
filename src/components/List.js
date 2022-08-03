@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import trash from '../assets/trash.png';
 
-const List = ({ animal, removeAnimal, token, user_id, animalId }) => {
+const List = ({ animal, removeAnimal, token, user_id, refreshList }) => {
   const [animation, setAnimation] = useState(false);
   const [reqStatus, setReqStatus] = useState();
 
@@ -10,14 +10,17 @@ const List = ({ animal, removeAnimal, token, user_id, animalId }) => {
   };
 
   function deletePreferred() {
-    fetch(`http://localhost:3000/user/${user_id}/animals/${animalId}`, {
+    fetch(`http://localhost:3000/user/${user_id}/animals/${animal.animal_id}`, {
       method: 'DELETE',
       headers: {
         Authorization: token,
       },
     })
       .then((response) => response.json())
-      .then((data) => setReqStatus(data))
+      .then((data) => {
+        setReqStatus(data);
+        setTimeout(() => refreshList(), 300);
+      })
       .catch((error) => {
         console.error('Error:', error);
       });
