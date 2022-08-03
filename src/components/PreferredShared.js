@@ -1,37 +1,64 @@
-import Modal from "react-bootstrap/Modal";
-import List from "./List";
+import { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import List from './List';
 
-const PreferredShared = ({ show, onHide, remove_animal, preferredAnimals }) => {
+const PreferredShared = ({
+  show,
+  onHide,
+  remove_animal,
+  preferredAnimals,
+  user_id,
+  token,
+}) => {
   const removeAnimal = (animal) => {
     remove_animal(animal);
   };
+  const [prefferedList, setPrefferedList] = useState([]);
+
+  function getPreferreds() {
+    user_id &&
+      fetch(`http://localhost:3000/user/${user_id}/animals`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setPrefferedList(data))
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+  }
+
+  useEffect(() => {
+    getPreferreds();
+  }, [user_id]);
 
   return (
     <Modal
-      className="fredoka"
+      className='fredoka'
       show={show}
       onHide={onHide}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header className="d-flex justify-content-center">
-        <h3 className="color-title-card text-shadow">Preferred Animals</h3>
+      size='lg'
+      aria-labelledby='contained-modal-title-vcenter'
+      centered>
+      <Modal.Header className='d-flex justify-content-center'>
+        <h3 className='color-title-card text-shadow'>Preferred Animals</h3>
       </Modal.Header>
       <Modal.Body>
-        {preferredAnimals.map((animal, index) => (
-          <li key={animal.name + index}>
+        {prefferedList.map((animal, index) => (
+          <li key={animal.id + index}>
             <List
-              preferredAnimals={preferredAnimals}
               animal={animal}
-              removeAnimal={() => removeAnimal(animal)}
-            ></List>
+              token={token}
+              user_id={user_id}
+              animalId={animal.id}
+              removeAnimal={() => removeAnimal(animal)}></List>
           </li>
         ))}
 
         {/* message if preferreds is empty */}
-        {preferredAnimals.length === 0 && (
-          <h3 className="text-center py-5">No preferreds &#128546;</h3>
+        {prefferedList.length === 0 && (
+          <h3 className='text-center py-5'>No preferreds &#128546;</h3>
         )}
       </Modal.Body>
     </Modal>

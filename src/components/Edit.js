@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
-import habitats from "../assets/habitats.json";
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import habitats from '../assets/habitats.json';
 
 export function Edit({ show, onHide, currentAnimal, token }) {
   const [reqStatus, setReqStatus] = useState();
   const [file, setFile] = useState();
   const [input, setInput] = useState({
-    name: "",
-    latin_name: "",
-    animal_type: "",
-    habitat_id: "",
-    diet: "",
-    geo_range: "",
-    image_link: "",
+    name: '',
+    latin_name: '',
+    animal_type: '',
+    habitat_id: '',
+    diet: '',
+    geo_range: '',
+    image_link: '',
   });
 
   function handleInputChange(event) {
@@ -60,20 +60,24 @@ export function Edit({ show, onHide, currentAnimal, token }) {
   function uploadPhoto(event) {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("animal", input);
-    formData.append("image", file);
-    console.log(formData);
+    // formData.append('animal', input);
+    // formData.append('image', file);
+    // console.log(formData.get('animal').stream());
+
+    const pippo = { animal: input, image: file };
+    console.log(pippo);
+    console.log(pippo);
     fetch(`http://localhost:3000/animals/${currentAnimal?.id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         Authorization: token,
       },
-      body: formData,
+      body: pippo,
     })
       .then((response) => response.json())
       .then((data) => setReqStatus(data))
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
   }
 
@@ -84,44 +88,43 @@ export function Edit({ show, onHide, currentAnimal, token }) {
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Name</h6>
             <input
-              name="name"
-              type="text"
+              name='name'
+              type='text'
               value={input.name}
-              className="px-3"
+              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Latin Name</h6>
             <input
-              name="latin_name"
-              type="text"
+              name='latin_name'
+              type='text'
               value={input.latin_name}
-              className="px-3"
+              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Type</h6>
             <input
-              name="animal_type"
+              name='animal_type'
               value={input.animal_type}
-              className="px-3"
+              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Habitat</h6>
 
             <select
-              name="habitat_id"
+              name='habitat_id'
               value={input.habitat_id}
-              className="px-3"
-              onChange={handleInputChange}
-            >
+              className='px-3'
+              onChange={handleInputChange}>
               {habitats.map((habitat, index) => (
                 <option key={index} value={index + 99}>
                   {habitat.name}
@@ -129,31 +132,31 @@ export function Edit({ show, onHide, currentAnimal, token }) {
               ))}
             </select>
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Diet</h6>
             <input
-              name="diet"
+              name='diet'
               value={input.diet}
-              className="px-3"
+              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Geo Range</h6>
             <input
-              name="geo_range"
+              name='geo_range'
               value={input.geo_range}
-              className="px-3"
+              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className="px-3 my-4">
+          <div className='px-3 my-4'>
             <h6>Animal Image</h6>
 
             <input
-              type="file"
-              name="image"
-              className="px-3"
+              type='file'
+              name='image'
+              className='px-3'
               onChange={
                 handleFileChange
                 //handleInputChange();
@@ -163,7 +166,7 @@ export function Edit({ show, onHide, currentAnimal, token }) {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <button variant="primary" onClick={uploadPhoto}>
+        <button variant='primary' onClick={uploadPhoto}>
           Save Changes
         </button>
       </Modal.Footer>

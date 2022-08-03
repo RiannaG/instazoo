@@ -30,7 +30,6 @@ export const CreateAnimal = ({ show, onHide, token }) => {
   useEffect(() => {
     const number = parseInt(dataForm.habitat_id);
     dataForm.habitat_id = number;
-    console.log(dataForm.habitat_id);
   }, [dataForm.habitat_id]);
 
   const handleFileChange = (event) => {

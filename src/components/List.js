@@ -1,34 +1,53 @@
-import { useState } from "react";
-import trash from "../assets/trash.png";
+import { useState } from 'react';
+import trash from '../assets/trash.png';
 
-const List = ({ animal, removeAnimal }) => {
+const List = ({ animal, removeAnimal, token, user_id, animalId }) => {
   const [animation, setAnimation] = useState(false);
+  const [reqStatus, setReqStatus] = useState();
 
   const activeAnimation = () => {
     setAnimation(true);
   };
 
+  function deletePreferred() {
+    fetch(`http://localhost:3000/user/${user_id}/animals/${animalId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setReqStatus(data))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
   return (
     <div
       className={
         animation
-          ? "scale-out-center d-flex justify-content-between align-items-center"
-          : "d-flex justify-content-between align-items-center"
-      }
-    >
-      <img src={animal.image_link} alt="" height="100" width="100" />
-      <span className="fs-4">{animal.name}</span>
+          ? 'scale-out-center d-flex justify-content-between align-items-center'
+          : 'd-flex justify-content-between align-items-center'
+      }>
+      <img
+        src={`http://localhost:3000/${animal.Animals.image_link}`}
+        alt=''
+        height='100'
+        width='100'
+      />
+      <span className='fs-4'>{animal.Animals.name}</span>
 
       {/* TRASH BUTTON */}
       <button
-        className="btn shake-bottom"
+        className='btn shake-bottom'
         onClick={() => {
           activeAnimation();
-          removeAnimal(animal.id);
-          animal.liked = false;
-        }}
-      >
-        <img src={trash} alt="Trash" width="36" />
+          deletePreferred();
+          // removeAnimal(animal.id);
+          // animal.liked = false;
+        }}>
+        <img src={trash} alt='Trash' width='36' />
       </button>
     </div>
   );
