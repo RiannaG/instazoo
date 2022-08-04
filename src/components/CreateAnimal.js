@@ -5,6 +5,8 @@ import habitats from '../assets/habitats.json';
 
 export const CreateAnimal = ({ show, onHide, token }) => {
   const [reqStatus, setReqStatus] = useState();
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState('');
   const [dataForm, setDataForm] = useState({
     name: '',
     latin_name: '',
@@ -14,7 +16,6 @@ export const CreateAnimal = ({ show, onHide, token }) => {
     geo_range: '',
     image_link: '',
   });
-  const [file, setFile] = useState();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -34,16 +35,58 @@ export const CreateAnimal = ({ show, onHide, token }) => {
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    setFileName(event.target.files[0].name);
+    // const { image } = input;
+
+    setDataForm((input) => {
+      return {
+        ...input,
+        image_link: event.target.files[0].name,
+      };
+    });
   };
 
-  function uploadPhoto(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('animal', dataForm);
-    formData.append('image', file);
+  function checkData() {
+    uploadPhoto();
+    createAnimal();
+    // console.log(event.target.files[0]);
+  }
+
+  function createAnimal() {
     fetch(`http://localhost:3000/animals`, {
+      // method: 'PATCH',
+      // headers: {
+      //   // boundary: 'name',
+      //   Accept: 'application/json',
+      //   'Content-Type': 'application/json',
+      //   Authorization: token,
+      // },
+      method: 'POST', // or 'PUT'
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataForm),
+    })
+      .then((response) => response.json())
+      .then((data) => setReqStatus(data))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  function uploadPhoto(event) {
+    // event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', file);
+    console.log(file);
+
+    fetch(`http://localhost:3000/animals/image`, {
       method: 'POST',
       headers: {
+        'Access-Control-Allow-Origin': '*',
+        // boundary: 'name',
+        // 'content-type': 'multipart/form-data',
         Authorization: token,
       },
       body: formData,
@@ -141,7 +184,7 @@ export const CreateAnimal = ({ show, onHide, token }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <button variant='primary' onClick={uploadPhoto}>
+        <button variant='primary' onClick={checkData}>
           Save Changes
         </button>
       </Modal.Footer>

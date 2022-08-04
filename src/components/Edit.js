@@ -6,6 +6,8 @@ import habitats from '../assets/habitats.json';
 export function Edit({ show, onHide, currentAnimal, token }) {
   const [reqStatus, setReqStatus] = useState();
   const [file, setFile] = useState();
+
+  const [fileName, setFileName] = useState('');
   const [input, setInput] = useState({
     name: '',
     latin_name: '',
@@ -41,14 +43,15 @@ export function Edit({ show, onHide, currentAnimal, token }) {
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    setFileName(event.target.files[0].name);
     // const { image } = input;
 
-    // setInput((input) => {
-    //   return {
-    //     ...input,
-    //     [image]: event.target.files[0],
-    //   };
-    // });
+    setInput((input) => {
+      return {
+        ...input,
+        image_link: event.target.files[0].name,
+      };
+    });
   };
 
   useEffect(() => {
@@ -57,22 +60,59 @@ export function Edit({ show, onHide, currentAnimal, token }) {
     console.log(input.habitat_id);
   }, [input.habitat_id]);
 
-  function uploadPhoto(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    // formData.append('animal', input);
-    // formData.append('image', file);
-    // console.log(formData.get('animal').stream());
+  // useEffect(() => {
+  //   setInput((input.image_link = file.name));
+  // }, [file]);
 
-    const pippo = { animal: input, image: file };
-    console.log(pippo);
-    console.log(pippo);
+  function checkData() {
+    if (fileName) {
+      // console.log(input);
+      uploadPhoto();
+    }
+    console.log(input);
+    editData();
+    // console.log(event.target.files[0]);
+  }
+
+  function editData() {
+    console.log(input);
+    // const pluto = JSON.stringify(input);
     fetch(`http://localhost:3000/animals/${currentAnimal?.id}`, {
-      method: 'PATCH',
+      // method: 'PATCH',
+      // headers: {
+      //   // boundary: 'name',
+      //   Accept: 'application/json',
+      //   'Content-Type': 'application/json',
+      //   Authorization: token,
+      // },
+      method: 'PATCH', // or 'PUT'
       headers: {
         Authorization: token,
+        'Content-Type': 'application/json',
       },
-      body: pippo,
+      body: JSON.stringify(input),
+    })
+      .then((response) => response.json())
+      .then((data) => setReqStatus(data))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  function uploadPhoto(event) {
+    // event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch(`http://localhost:3000/animals/image/${currentAnimal?.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        // boundary: 'name',
+        // 'content-type': 'multipart/form-data',
+        Authorization: token,
+      },
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => setReqStatus(data))
@@ -166,7 +206,7 @@ export function Edit({ show, onHide, currentAnimal, token }) {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <button variant='primary' onClick={uploadPhoto}>
+        <button variant='primary' onClick={checkData}>
           Save Changes
         </button>
       </Modal.Footer>
