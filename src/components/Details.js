@@ -10,9 +10,10 @@ export function Details({
   handleToggle,
   token,
   user_id,
+  refreshPreferreds,
 }) {
   const [reqStatus, setReqStatus] = useState('');
-  const [prefferedList, setPrefferedList] = useState([]);
+  const [preferredList, setPreferredList] = useState([]);
   const [isLiked, setIsLiked] = useState();
   function checkLike() {
     user_id &&
@@ -22,7 +23,7 @@ export function Details({
         },
       })
         .then((response) => response.json())
-        .then((data) => setPrefferedList(data))
+        .then((data) => setPreferredList(data))
         .catch((error) => {
           console.error('Error:', error);
         });
@@ -30,13 +31,11 @@ export function Details({
 
   useEffect(() => {
     checkLike();
-
-    const preferredIdArr = prefferedList.map(
+    const preferredIdArr = preferredList.map(
       (preferred) => preferred.animal_id
     );
-
     setIsLiked(preferredIdArr.includes(currentAnimal?.id));
-  }, [show]);
+  }, [show, onHide]);
 
   function handleLike() {
     if (!isLiked) {
