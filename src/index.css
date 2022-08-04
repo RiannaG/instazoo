@@ -88,7 +88,8 @@ li {
 }
 
 .edit-btn {
-  width: 36px;
+  width: 50px;
+  margin-right: 1rem;
 }
 
 .edit-btn:hover {
@@ -98,7 +99,7 @@ li {
 /************* MAIN CONTAINER */
 
 .background-home {
-  background: url(../src/assets/pattern-ldn.svg);
+  background: url(../src/assets/pattern-ldn.svg) repeat-y;
 }
 
 .max-width {
@@ -150,7 +151,35 @@ li {
   border-radius: 5px;
   opacity: 1 !important;
 }
-
+/************* EDIT COMPONENT */
+.edit-icon {
+  width: 50px;
+  margin: 0 0.5rem;
+}
+.edit-label {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.edit-input {
+  margin: auto;
+  border-radius: 20px;
+  border-style: none;
+  font-size: 1.2rem;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  width: 100%;
+  background-color: #3c3c3b;
+  color: #ffffff;
+}
+.edit-footer > button {
+  margin: 0.5rem auto;
+}
+.vai {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 /************* LANDINGPAGE */
 
 .gradient {
@@ -215,7 +244,7 @@ li {
   background-color: #3c3c3b;
 }
 .form {
-  width: 50%;
+  width: 60%;
   height: fit-content;
   padding: 2rem;
   margin: 1rem auto;
@@ -226,8 +255,9 @@ li {
   gap: 1.5rem;
   align-items: center;
 }
-.form-login {
-  margin-top: 10%;
+
+.label-width {
+  width: 100%;
 }
 .form > label {
   width: 60%;

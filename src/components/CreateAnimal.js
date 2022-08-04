@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
-import habitats from '../assets/habitats.json';
+import { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
+import habitats from "../assets/habitats.json";
+import addImg from "../assets/icon-add.svg";
 
 export const CreateAnimal = ({ show, onHide, token }) => {
   const [reqStatus, setReqStatus] = useState();
   const [dataForm, setDataForm] = useState({
-    name: '',
-    latin_name: '',
-    animal_type: '',
+    name: "",
+    latin_name: "",
+    animal_type: "",
     habitat_id: 0,
-    diet: '',
-    geo_range: '',
-    image_link: '',
+    diet: "",
+    geo_range: "",
+    image_link: "",
   });
   const [file, setFile] = useState();
 
@@ -39,10 +40,10 @@ export const CreateAnimal = ({ show, onHide, token }) => {
   function uploadPhoto(event) {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('animal', dataForm);
-    formData.append('image', file);
+    formData.append("animal", dataForm);
+    formData.append("image", file);
     fetch(`http://localhost:3000/animals`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: token,
       },
@@ -51,54 +52,67 @@ export const CreateAnimal = ({ show, onHide, token }) => {
       .then((response) => response.json())
       .then((data) => setReqStatus(data))
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
 
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <img className="edit-icon" src={addImg} />
+        <Modal.Title>Add a New Animal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <div className='px-3 my-4'>
-            <h6>Animal Name</h6>
+          <div className="px-3 my-4">
+            <label className="edit-label" for="name">
+              Animal Name :
+            </label>
             <input
-              name='name'
-              type='text'
+              id="animal-name"
+              name="name"
+              type="text"
               value={dataForm.name}
-              className='px-5'
+              className="edit-input"
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Latin Name</h6>
+          <div className="px-3 my-4">
+            <label className="edit-label" for="latin-name">
+              Animal Latin Name :
+            </label>
             <input
-              name='latin_name'
-              type='text'
+              id="latin-name"
+              name="latin_name"
+              type="text"
               value={dataForm.latin_name}
-              className='px-5'
+              className="edit-input"
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Type</h6>
+          <div className="px-3 my-4">
+            <label className="edit-label" for="animal-type">
+              Animal Type :
+            </label>
             <input
-              name='animal_type'
+              id="animal-type"
+              name="animal_type"
               value={dataForm.animal_type}
-              className='px-5'
+              className="edit-input"
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Habitat</h6>
-
+          <div className="px-3 my-4">
+            <label className="edit-label" for="animal-habitat">
+              Animal Habitat :
+            </label>
             <select
-              name='habitat_id'
+              id="animal-habitat"
+              name="habitat_id"
               value={dataForm.habitat_id}
-              className='px-5'
-              onChange={handleInput}>
+              className="edit-input"
+              onChange={handleInput}
+            >
               {habitats.map((habitat, index) => (
                 <option key={index} value={index + 99}>
                   {habitat.name}
@@ -106,32 +120,40 @@ export const CreateAnimal = ({ show, onHide, token }) => {
               ))}
             </select>
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Diet</h6>
+          <div className="px-3 my-4">
+            <label className="edit-label" for="animal-diet">
+              Animal Diet :
+            </label>
             <input
-              name='diet'
+              id="animal-diet"
+              name="diet"
               value={dataForm.diet}
-              className='px-5'
+              className="edit-input"
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Geo Range</h6>
+          <div className="px-3 my-4">
+            <label className="edit-label" for="animal-geo">
+              Animal Geo Range :
+            </label>
             <input
-              name='geo_range'
+              id="animal-geo"
+              name="geo_range"
               value={dataForm.geo_range}
-              className='px-5'
+              className="edit-input"
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Image</h6>
+          <div className="my-4">
+            <label className="edit-label px-2" for="anim-img">
+              Animal Image :
+            </label>
 
             <input
-              type='file'
-              name='image'
+              id="anim-img"
+              type="file"
+              name="image"
               //  value={dataForm.image_link}
-              className='px-5'
               onChange={
                 handleFileChange
                 // handleInput();
@@ -140,8 +162,12 @@ export const CreateAnimal = ({ show, onHide, token }) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <button variant='primary' onClick={uploadPhoto}>
+      <Modal.Footer className="edit-footer gradient-header">
+        <button
+          className="fredoka rounded-pill submitBtn"
+          variant="primary"
+          onClick={uploadPhoto}
+        >
           Save Changes
         </button>
       </Modal.Footer>
