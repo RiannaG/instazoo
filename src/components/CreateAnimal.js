@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
 import habitats from '../assets/habitats.json';
+import addImg from '../assets/icon-add.svg';
 
 export const CreateAnimal = ({ show, onHide, token }) => {
   const [reqStatus, setReqStatus] = useState();
@@ -101,46 +102,58 @@ export const CreateAnimal = ({ show, onHide, token }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <img className='edit-icon' src={addImg} />
+        <Modal.Title>Add a New Animal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <div className='px-3 my-4'>
-            <h6>Animal Name</h6>
+            <label className='edit-label' for='name'>
+              Animal Name :
+            </label>
             <input
+              id='animal-name'
               name='name'
               type='text'
               value={dataForm.name}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Latin Name</h6>
+            <label className='edit-label' for='latin-name'>
+              Animal Latin Name :
+            </label>
             <input
+              id='latin-name'
               name='latin_name'
               type='text'
               value={dataForm.latin_name}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Type</h6>
+            <label className='edit-label' for='animal-type'>
+              Animal Type :
+            </label>
             <input
+              id='animal-type'
               name='animal_type'
               value={dataForm.animal_type}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Habitat</h6>
-
+            <label className='edit-label' for='animal-habitat'>
+              Animal Habitat :
+            </label>
             <select
+              id='animal-habitat'
               name='habitat_id'
               value={dataForm.habitat_id}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}>
               {habitats.map((habitat, index) => (
                 <option key={index} value={index + 99}>
@@ -150,31 +163,39 @@ export const CreateAnimal = ({ show, onHide, token }) => {
             </select>
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Diet</h6>
+            <label className='edit-label' for='animal-diet'>
+              Animal Diet :
+            </label>
             <input
+              id='animal-diet'
               name='diet'
               value={dataForm.diet}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Geo Range</h6>
+            <label className='edit-label' for='animal-geo'>
+              Animal Geo Range :
+            </label>
             <input
+              id='animal-geo'
               name='geo_range'
               value={dataForm.geo_range}
-              className='px-5'
+              className='edit-input'
               onChange={handleInput}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Image</h6>
+          <div className='my-4'>
+            <label className='edit-label px-2' for='anim-img'>
+              Animal Image :
+            </label>
 
             <input
+              id='anim-img'
               type='file'
               name='image'
               //  value={dataForm.image_link}
-              className='px-5'
               onChange={
                 handleFileChange
                 // handleInput();
@@ -183,8 +204,12 @@ export const CreateAnimal = ({ show, onHide, token }) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <button variant='primary' onClick={checkData}>
+
+      <Modal.Footer className='edit-footer gradient-header'>
+        <button
+          className='fredoka rounded-pill submitBtn'
+          variant='primary'
+          onClick={checkData}>
           Save Changes
         </button>
       </Modal.Footer>

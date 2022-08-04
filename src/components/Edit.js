@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import habitats from '../assets/habitats.json';
+import editImg from '../assets/icon-edit.svg';
 
 export function Edit({ show, onHide, currentAnimal, token }) {
   const [reqStatus, setReqStatus] = useState();
@@ -124,46 +125,58 @@ export function Edit({ show, onHide, currentAnimal, token }) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <img className='edit-icon' src={editImg} />
+        <Modal.Title className='fredoka edit-title'>Edit Animal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form>
+        <form className='fredoka'>
           <div className='px-3 my-4'>
-            <h6>Animal Name</h6>
+            <label className='edit-label' for='animal-name'>
+              Animal Name :
+            </label>
             <input
+              className='edit-input'
+              id='animal-name'
               name='name'
               type='text'
               value={input.name}
-              className='px-3'
               onChange={handleInputChange}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Latin Name</h6>
+            <label className='edit-label' for='animal-latin'>
+              Animal Latin Name :
+            </label>
             <input
+              className='edit-input'
+              id='animal-latin'
               name='latin_name'
               type='text'
               value={input.latin_name}
-              className='px-3'
               onChange={handleInputChange}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Type</h6>
+            <label className='edit-label' for='animal-type'>
+              Animal Type :
+            </label>
             <input
+              className='edit-input'
+              id='animal-type'
               name='animal_type'
               value={input.animal_type}
-              className='px-3'
               onChange={handleInputChange}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Habitat</h6>
-
+            <label className='edit-label' for='animal-habitat'>
+              Animal Habitat :
+            </label>
             <select
+              className='edit-input'
+              id='animal-habitat'
               name='habitat_id'
               value={input.habitat_id}
-              className='px-3'
               onChange={handleInputChange}>
               {habitats.map((habitat, index) => (
                 <option key={index} value={index + 99}>
@@ -173,30 +186,38 @@ export function Edit({ show, onHide, currentAnimal, token }) {
             </select>
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Diet</h6>
+            <label className='edit-label' for='animal-diet'>
+              Animal Diet :
+            </label>
             <input
-              name='diet'
+              className='edit-input'
+              id='animal-diet'
+              name=''
               value={input.diet}
-              className='px-3'
               onChange={handleInputChange}
             />
           </div>
           <div className='px-3 my-4'>
-            <h6>Animal Geo Range</h6>
+            <label className='edit-label' for='animal-range'>
+              Animal Geo Range :
+            </label>
             <input
+              className='edit-input'
+              id='animal-range'
               name='geo_range'
               value={input.geo_range}
-              className='px-3'
               onChange={handleInputChange}
             />
           </div>
-          <div className='px-3 my-4'>
-            <h6>Animal Image</h6>
+          <div className='vai'>
+            <label className='edit-label' for='anim-img'>
+              Animal Image :
+            </label>
 
             <input
+              id='anim-img'
               type='file'
               name='image'
-              className='px-3'
               onChange={
                 handleFileChange
                 //handleInputChange();
@@ -205,8 +226,12 @@ export function Edit({ show, onHide, currentAnimal, token }) {
           </div>
         </form>
       </Modal.Body>
-      <Modal.Footer>
-        <button variant='primary' onClick={checkData}>
+
+      <Modal.Footer className='edit-footer gradient-header'>
+        <button
+          className='fredoka rounded-pill submitBtn'
+          variant='primary'
+          onClick={checkData}>
           Save Changes
         </button>
       </Modal.Footer>
