@@ -218,6 +218,7 @@ export function Edit({ show, onHide, currentAnimal, token }) {
               id='anim-img'
               type='file'
               name='image'
+              accept='image/*'
               onChange={
                 handleFileChange
                 //handleInputChange();

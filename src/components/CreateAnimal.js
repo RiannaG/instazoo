@@ -195,6 +195,7 @@ export const CreateAnimal = ({ show, onHide, token }) => {
               id='anim-img'
               type='file'
               name='image'
+              accept='image/*'
               //  value={dataForm.image_link}
               onChange={
                 handleFileChange
